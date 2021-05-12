@@ -12,3 +12,5 @@ For example:
 ```
 (1+2)/    --->    \frac{1+2}{}
 ```
+
+The snippets is adapted from https://zhuanlan.zhihu.com/p/199268436.
