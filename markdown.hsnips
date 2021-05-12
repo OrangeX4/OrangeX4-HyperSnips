@@ -47,7 +47,7 @@ snippet >= "lkjl" iAm
 endsnippet
 
 snippet dis "displaystyle" iAm
-\displaystyle
+\displaystyle 
 endsnippet
 
 snippet <= "Fraction" iAm
@@ -154,6 +154,22 @@ snippet vdash "vdash" iAm
 \\vdash
 endsnippet
 
+snippet xb "vdash" iAm
+(x)
+endsnippet
+
+snippet yb "vdash" iAm
+(y)
+endsnippet
+
+snippet xyb "vdash" iAm
+(x,y)
+endsnippet
+
+snippet xyzb "vdash" iAm
+(x,y,z)
+endsnippet
+
 snippet jacobi "jacobi" iAm
 \\begin{pmatrix}\\frac{\\partial ${1:f}_1}{\\partial ${2:x}_1}&\\frac{\\partial ${1:f}_1}{\\partial ${2:x}_2}&\\cdots&\\frac{\\partial ${1:f}_1}{\\partial ${2:x}_${3:n}}\\\\\\frac{\\partial ${1:f}_2}{\\partial ${2:x}_1}&\\frac{\\partial ${1:f}_2}{\\partial ${2:x}_2}&\\cdots&\\frac{\\partial ${1:f}_2}{\\partial ${2:x}_${3:n}}\\\\\\vdots&\\vdots&\\ddots&\\vdots\\\\\\frac{\\partial ${1:f}_${3:m}}{\\partial ${2:x}_1}&\\frac{\\partial ${1:f}_${3:m}}{\\partial ${2:x}_2}&\\cdots&\\frac{\\partial ${1:f}_${3:m}}{\\partial ${2:x}_${3:n}}\\end{pmatrix}
 endsnippet
@@ -231,11 +247,6 @@ snippet `([A-Za-z])(\d)` "auto subscript" wAmm
 `` rv = m[1]``_``rv = m[2]``
 endsnippet
 
-snippet `([A-Za-z])_(\d+)` "auto subscript2" wAmm
-`` rv = m[1]``_{``rv = m[2]``$1}$0
-endsnippet
-
-
 snippet ceil "ceil" iAm
 \left\lceil $1 \right\rceil $0
 endsnippet
@@ -285,15 +296,15 @@ snippet prod "product" wAm
 endsnippet
 
 snippet part "d/dx" wAm
-\frac{\partial ${1:V}}{\partial ${2:x}} $0
+\frac{\partial ${1:V}}{\partial ${2:x}}$0
 endsnippet
 
 snippet diff "d/dx" wAm
-\frac{\mathrm{d}${1:y}}{\mathrm{d}${2:x}} $0
+\frac{\mathrm{d}${1:y}}{\mathrm{d}${2:x}}$0
 endsnippet
 
 snippet sq "\sqrt{}" iAm
-\sqrt{${1}} $0
+\sqrt{${1}}$0
 endsnippet
 
 snippet pmat "pmat" wm
@@ -354,9 +365,6 @@ snippet yjj "yj" iAm
 y_{j}
 endsnippet
 
-snippet `\b([a-zA-Z])ii` "?i" iAm
-``rv = m[1]``_{i}
-endsnippet
 
 snippet `(\d[a-zA-Z]|\\mu|\\alpha|\\sigma|\\rho|\\beta|\\gamma|\\delta|\\zeta|\\eta|\\varepsilon|\\theta|\\iota|\\kappa|\\vartheta|\\lambda|\\nu|\\pi|\\rho|\\tau|\\upsilon|\\phi|\\chi|\\psi|\\omega|\\Gamma|\\Delta|\\Theta|\\Lambda|\\Xi|\\Pi|\\Sigma|\\Upsilon|\\Phi|\\Psi|\\Omega)ii` "?i" iAm
 ``rv = m[1]``_{i}
@@ -406,7 +414,7 @@ endsnippet
 
 snippet ali "aligned" wAm
 \begin{aligned}
-	$1 \\\\
+$1 \\\\
 \end{aligned}
 endsnippet
 
@@ -531,15 +539,15 @@ snippet `(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp)` "ln" wAm
 \\``rv = m[1]``
 endsnippet
 
-priority 200
-snippet `(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|int)` "ln" wAm
+priority 10000
+snippet `(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|oint|iiint|iint|int)` "ln" wAm
 \\``rv = m[1]``
 endsnippet
 
 priority 200
 
-snippet `(?<![\\a-zA-Z])(mu|alpha|sigma|rho|beta|gamma|delta|zeta|eta|varepsilon|theta|iota|kappa|vartheta|lambda|nu|pi|rho|tau|upsilon|phi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)` "greek" wAm
-\\``rv = m[1]``
+snippet `(mu|alpha|sigma|rho|beta|gamma|delta|zeta|eta|varepsilon|theta|iota|kappa|vartheta|lambda|nu|pi|rho|tau|upsilon|varphi|phi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)` "greek" wAm
+\\``rv = m[0]``
 endsnippet
 
 priority 100
@@ -582,6 +590,18 @@ snippet tp "to the ... power" iAm
 ^{${1:2}}$0
 endsnippet
 
+snippet sb "to the ... power" iAm
+_{${1:2}}$0
+endsnippet
+
+snippet sr "square" iAm
+^{2}$0
+endsnippet
+
+snippet cb "square" iAm
+^{3}$0
+endsnippet
+
 priority 100
 snippet mcal "mathcal" im
 \mathcal{$1}$0
@@ -589,6 +609,14 @@ endsnippet
 
 snippet mbb "mathbb" im
 \mathbb{$1}$0
+endsnippet
+
+snippet bec "mathbb" iAm
+\because 
+endsnippet
+
+snippet thr "mathbb" iAm
+\therefore 
 endsnippet
 
 priority 10000
@@ -695,18 +723,43 @@ snippet `vecr([1-9]{1})` "row vector" iwAm
 ``\\end{pmatrix}$0
 endsnippet
 
+priority 3000
 snippet vecn "vector n" iAm
 \\begin{pmatrix}${1:x}_1\\\\${1:x}_2\\\\\\vdots\\\\${1:x}_n\\end{pmatrix}
 endsnippet
 
+priority 3000
 snippet comma "comma" iAm
 ${1:\\alpha}_1,${1:\\alpha}_2,\\cdots,${1:\\alpha}_${2:n}
 endsnippet
 
+priority 3000
 snippet plus "plus" iAm
 ${1:k}_1${2:\\alpha}_1+${1:k}_2${2:\\alpha}_2+\\cdots+${1:k}_${3:n}${2:\\alpha}_${3:n}
 endsnippet
 
+priority 3000
 snippet omis "omission" iAm
 \\begin{pmatrix}${1:1}&${2:1}&\\cdots&${4:1}\\\\${5:1}&${6:1}&\\cdots&${8:1}\\\\\\vdots&\\vdots&\\ddots&\\vdots\\\\${13:1}&${14:1}&\\cdots&${16:1}\\end{pmatrix}
 endsnippet
+
+priority 3000
+snippet submat "omission" iAm
+\\begin{pmatrix}
+    ${1:a}_{11} & ${1:a}_{12} & \\cdots & ${1:a}_{1n} \\\\
+    ${1:a}_{21} & ${1:a}_{22} & \\cdots & ${1:a}_{2n} \\\\
+    \\vdots & \\vdots & \\ddots & \\vdots \\\\
+    ${1:a}_{n1} & ${1:a}_{n2} & \\cdots & ${1:a}_{nn}
+\\end{pmatrix}
+endsnippet
+
+priority 3000
+snippet subplusmat "omission" iAm
+\\begin{pmatrix}
+    ${1:a}_{11}+{2:b}_{11} & ${1:a}_{12}+{2:b}_{12} & \\cdots & ${1:a}_{1n}+{2:b}_{1n} \\\\
+    ${1:a}_{21}+{2:b}_{21} & ${1:a}_{22}+{2:b}_{22} & \\cdots & ${1:a}_{2n}+{2:b}_{2n} \\\\
+    \\vdots & \\vdots & \\ddots & \\vdots \\\\
+    ${1:a}_{n1}+{2:b}_{n1} & ${1:a}_{n2}+{2:b}_{n2} & \\cdots & ${1:a}_{nn}+{2:b}_{nn}
+\\end{pmatrix}
+endsnippet
+
