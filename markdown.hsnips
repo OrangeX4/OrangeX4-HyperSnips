@@ -607,7 +607,7 @@ snippet mcal "mathcal" im
 \mathcal{$1}$0
 endsnippet
 
-snippet mbb "mathbb" im
+snippet mbb "mathbb" iAm
 \mathbb{$1}$0
 endsnippet
 
