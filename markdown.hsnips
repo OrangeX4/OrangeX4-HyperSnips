@@ -35,6 +35,22 @@ function tes_matrix(nrow, ncol,t) {
 	return results;
 }
 
+// 输出一个表格
+function createTable(rows, cols) {
+    let ret = "";
+    for (let i = 0; i < parseInt(rows) + 2; i++) {
+        for (let j = 0; j < parseInt(cols); j++) {
+            if (i === 1) {
+                ret += "|---";
+            } else {
+                ret += "|  ";
+            }
+        }
+        ret += "|\n"
+    }
+    return ret;
+}
+
 endglobal
 
 
@@ -761,5 +777,11 @@ snippet subplusmat "omission" iAm
     \\vdots & \\vdots & \\ddots & \\vdots \\\\
     ${1:a}_{n1}+{2:b}_{n1} & ${1:a}_{n2}+{2:b}_{n2} & \\cdots & ${1:a}_{nn}+{2:b}_{nn}
 \\end{pmatrix}
+endsnippet
+
+snippet `table(\d)(\d)` "create table with rows and columns" wA
+``
+rv = createTable(m[1], m[2]);
+``
 endsnippet
 
