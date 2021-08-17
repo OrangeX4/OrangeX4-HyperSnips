@@ -152,13 +152,31 @@ snippet `([A-Za-z])(\d)` "auto subscript" wAmm
 `` rv = m[1] + "_" + m[2]``
 endsnippet
 
+priority 100
+snippet `([A-Za-z])_(\d{2})` "auto subscript" wAmm
+`` rv = m[1] + "_{" + m[2] + "}$0" ``
+endsnippet
+
+priority 100
+snippet `([A-Za-z])S(\d)` "auto subscript" wAmm
+`` rv = m[1] + "_{${1:" + m[2] + "}}$2"``
+endsnippet
+
 snippet `\b(?<!\\)([A-Za-z])([a-z])\2` "auto subscript 2" iAm
 `` rv = m[1] + "_" + m[2].substring(0, 1) ``
+endsnippet
+
+snippet `\b(?<!\\)([A-Za-z])S([a-z])\2` "auto subscript 2" iAm
+`` rv = m[1] + "_{${1:" + m[2].substring(0, 1) + "}}$2"``
 endsnippet
 
 # Custom: Add more greek letters
 snippet `(\\mu|\\alpha|\\sigma|\\rho|\\beta|\\gamma|\\delta|\\zeta|\\eta|\\varepsilon|\\theta|\\iota|\\kappa|\\vartheta|\\lambda|\\nu|\\pi|\\rho|\\tau|\\upsilon|\\phi|\\chi|\\psi|\\omega|\\Gamma|\\Delta|\\Theta|\\Lambda|\\Xi|\\Pi|\\Sigma|\\Upsilon|\\Phi|\\Psi|\\Omega)([a-z])\2` "auto subscript for greek letter" iAm
 `` rv = m[1] + "_" + m[2].substring(0, 1) ``
+endsnippet
+
+snippet `(\\mu|\\alpha|\\sigma|\\rho|\\beta|\\gamma|\\delta|\\zeta|\\eta|\\varepsilon|\\theta|\\iota|\\kappa|\\vartheta|\\lambda|\\nu|\\pi|\\rho|\\tau|\\upsilon|\\phi|\\chi|\\psi|\\omega|\\Gamma|\\Delta|\\Theta|\\Lambda|\\Xi|\\Pi|\\Sigma|\\Upsilon|\\Phi|\\Psi|\\Omega)S([a-z])\2` "auto subscript for greek letter" iAm
+`` rv = m[1] + "_{${1:" + m[2].substring(0, 1) + "}}$2"``
 endsnippet
 
 snippet _ "subscript" iAm
@@ -256,10 +274,6 @@ snippet ** "dot multiply" iAm
 \cdot 
 endsnippet
 
-snippet `\b(?<!\\)notin` wAm
-\notin
-endsnippet
-
 snippet xx "cross" iAm
 \times 
 endsnippet
@@ -268,13 +282,10 @@ snippet eps "epsilon" wAm
 \epsilon
 endsnippet
 
-snippet `\b(?<!\\)ell` "l" iAm
-\ell
+snippet `(?<=\b|\d+)(?<!\\)(ell|nabla|notin)` "symbol" iAm
+\\``rv = m[1]``
 endsnippet
 
-snippet `(?<!\\)nabla` "nabla" iAm
-\nabla 
-endsnippet
 
 snippet `(?<=\b|\d+)(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|oint|iiint|iint|int)` "ln" wAm
 \\``rv = m[1]``
@@ -729,4 +740,3 @@ snippet `table(\d)(\d)` "create table with rows and columns" wA
 rv = createTable(m[1], m[2]);
 ``
 endsnippet
-
