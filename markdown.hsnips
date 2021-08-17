@@ -6,10 +6,10 @@ function gen_matrix(nrow, ncol) {
 	for (var i=0; i<nrow; i++){
 		results += '	';
 		for(var j = 0;j <ncol-1;j++){
-			results += "$" +(order ).toString() + " &";
+			results += "$" +(order ).toString() + " & ";
 			order ++;
 		}
-		results += "$"+(order).toString() +" \\\\"+ "\\";
+		results += "$"+(order).toString() +" \\\\" + "\\ ";
 		order ++;
 	}
 	return results;
@@ -25,11 +25,11 @@ function tes_matrix(nrow, ncol,t) {
 				results += "${" +(order ).toString() + ":" + t[order-2] + "}\t & ";
 			}
 			else{
-				results += "$" +(order ).toString()  + " &";
+				results += "$" +(order ).toString()  + " & ";
 			}
 			order ++;
 		}
-		results += "$"+(order).toString() +" \\\\"+ "\\";
+		results += "$"+(order).toString() +" \\\\" + "\\ ";
 		order ++;
 	}
 	return results;
@@ -54,11 +54,308 @@ function createTable(rows, cols) {
 endglobal
 
 
+# == Fraction Match ==
+
+
 snippet // "Fraction" iAm
-\\frac{$1}{$2}$0
+\frac{$1}{$2}$0
+endsnippet 
+
+snippet `((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/` "Fraction no ()" iAm
+\frac{``rv = m[1]``}{$1}$0
 endsnippet
 
-snippet >= "lkjl" iAm
+priority 200
+snippet `(?<=\s)(\\mu|\\alpha|\\sigma|\\rho|\\beta|\\gamma|\\delta|\\zeta|\\eta|\\varepsilon|\\theta|\\iota|\\kappa|\\vartheta|\\lambda|\\nu|\\pi|\\rho|\\tau|\\upsilon|\\phi|\\chi|\\psi|\\omega|\\Gamma|\\Delta|\\Theta|\\Lambda|\\Xi|\\Pi|\\Sigma|\\Upsilon|\\Phi|\\Psi|\\Omega|[A-Za-z]{1,2})?(_[A-Za-z0-9]|_\{[^}]+\})?(\^[A-Za-z0-9]|\^\{[^}]+\})?(_[A-Za-z0-9]|_\{[^}]+\})?(\([^)]+\))(_[A-Za-z0-9]|_\{[^}]+\})?(\^[A-Za-z0-9]|\^\{[^}]+\})?(_[A-Za-z0-9]|_\{[^}]+\})?\/` "Fraction with ()" iAm
+``rv = "\\frac{" + m.slice(1, m.length).join('') + "}{$1}$2"``
+endsnippet
+
+# == Hat Operation ==
+
+# ==== Auto Capture Hat Operation ====
+snippet `(\(?)(\\?[a-zA-Z]\w*)(\)?)(hbar|BAR)` "Bar" iAm
+\overline{``rv = m[1] + m[2] + m[3]``}
+endsnippet
+
+snippet `(\\?[a-zA-Z]\w*)(htd|TD)` "tilde" iAm
+\widetilde{``rv = m[1]``}
+endsnippet
+
+snippet `(\\?[a-zA-Z]\w*)(hat|HAT)` "hat" iAm
+\hat{``rv = m[1]``}
+endsnippet
+
+snippet `(\\?[a-zA-Z]\w*)(hvec)` "Vector postfix" iAm
+\vec{``rv = m[1]``}
+endsnippet
+
+snippet `(\\?[a-zA-Z]\w*)(rta)` "Vector postfix" iAm
+\overrightarrow{``rv = m[1]``}
+endsnippet
+
+snippet `(\\?[a-zA-Z]\w*)(hdot)` "dot" iAm
+\dot{``rv = m[1]``}
+endsnippet
+
+snippet `(\\?[a-zA-Z]\w*)(hddot)` "ddot" iAm
+\ddot{``rv = m[1]``}
+endsnippet
+
+# ===== Static Hat Operation ====
+
+snippet hbar "bar" iAm
+\overline{$1}$0
+endsnippet
+
+snippet hat "hat" iAm
+\hat{$1}$0
+endsnippet
+
+snippet hsq "\sqrt{}" iAm
+\sqrt{${1}}$0
+endsnippet
+
+# == Superscript Operation ==
+
+snippet invs "inverse" wAm
+^{-1}
+endsnippet
+
+priority 10000
+snippet TR "inverse" iAm
+^{\mathsf{T}}
+endsnippet
+
+snippet CL "complement" wAm
+^{c}
+endsnippet
+
+snippet R+ "R0+" iAm
+R_0^+
+endsnippet
+
+snippet ^ "superscript" iAm
+^{${1}}$0
+endsnippet
+
+snippet pow "power" iAm
+^{${1:2}}$0
+endsnippet
+
+snippet cb "cubic" iAm
+^{3}$0
+endsnippet
+
+# == Subscript Operation ==
+
+snippet `([A-Za-z])(\d)` "auto subscript" wAmm
+`` rv = m[1] + "_" + m[2]``
+endsnippet
+
+priority 100
+snippet `([A-Za-z])_(\d{2})` "auto subscript" wAmm
+`` rv = m[1] + "_{" + m[2] + "}$0" ``
+endsnippet
+
+priority 100
+snippet `([A-Za-z])S(\d)` "auto subscript" wAmm
+`` rv = m[1] + "_{${1:" + m[2] + "}}$2"``
+endsnippet
+
+snippet `\b(?<!\\)([A-Za-z])([a-z])\2` "auto subscript 2" iAm
+`` rv = m[1] + "_" + m[2].substring(0, 1) ``
+endsnippet
+
+snippet `\b(?<!\\)([A-Za-z])S([a-z])\2` "auto subscript 2" iAm
+`` rv = m[1] + "_{${1:" + m[2].substring(0, 1) + "}}$2"``
+endsnippet
+
+# Custom: Add more greek letters
+snippet `(\\mu|\\alpha|\\sigma|\\rho|\\beta|\\gamma|\\delta|\\zeta|\\eta|\\varepsilon|\\theta|\\iota|\\kappa|\\vartheta|\\lambda|\\nu|\\pi|\\rho|\\tau|\\upsilon|\\phi|\\chi|\\psi|\\omega|\\Gamma|\\Delta|\\Theta|\\Lambda|\\Xi|\\Pi|\\Sigma|\\Upsilon|\\Phi|\\Psi|\\Omega)([a-z])\2` "auto subscript for greek letter" iAm
+`` rv = m[1] + "_" + m[2].substring(0, 1) ``
+endsnippet
+
+snippet `(\\mu|\\alpha|\\sigma|\\rho|\\beta|\\gamma|\\delta|\\zeta|\\eta|\\varepsilon|\\theta|\\iota|\\kappa|\\vartheta|\\lambda|\\nu|\\pi|\\rho|\\tau|\\upsilon|\\phi|\\chi|\\psi|\\omega|\\Gamma|\\Delta|\\Theta|\\Lambda|\\Xi|\\Pi|\\Sigma|\\Upsilon|\\Phi|\\Psi|\\Omega)S([a-z])\2` "auto subscript for greek letter" iAm
+`` rv = m[1] + "_{${1:" + m[2].substring(0, 1) + "}}$2"``
+endsnippet
+
+snippet _ "subscript" iAm
+_{${1}}$0
+endsnippet
+
+# == Font Operation ==
+
+# ==== Static Operation ====
+
+snippet txt "text" iAm
+\text{$1}$0
+endsnippet
+
+snippet tit "text it" iAm
+\textit{$1}$0
+endsnippet
+
+snippet mcal "mathcal" im
+\mathcal{$1}$0
+endsnippet
+
+snippet mbb "mathbb" iAm
+\mathbb{$1}$0
+endsnippet
+
+snippet mbf "mathbb" iAm
+\mathbf{$1}$0
+endsnippet
+
+snippet mbf "mathbm" iAm
+\mathbf{$1}$0
+endsnippet
+
+# ==== Dynamic Operation ====
+
+priority 100
+snippet `(\\?[a-zA-Z]\w*)(bf|BF)` "mathbf" iAm
+\mathbf{``rv = m[1]``}
+endsnippet
+
+priority 100
+snippet `(\\?[a-zA-Z]\w*)(bm|BM)` "mathbm" iAm
+\bm{``rv = m[1]``}
+endsnippet
+
+priority 100
+snippet `(\\?[a-zA-Z]\w*)(bs)` "boldsymbol" iAm
+\boldsymbol{``rv = m[1]``}
+endsnippet
+
+priority 100
+snippet `(\\?[a-zA-Z]\w*)mcal` "mathcal" iAm
+\mathcal{``rv = m[1].toUpperCase() ``} $0
+endsnippet
+
+priority 100
+snippet `(?<!\\)\b([a-zA-Z]+)rm` "mathrm" iAm
+\mathrm{``rv = m[1]``}
+endsnippet
+
+priority 100
+snippet `(\\?[a-zA-Z]\w*)mbb` iAm
+\mathbb{``rv = m[1]``} $0
+endsnippet
+
+
+# == Auto Symbol ==
+
+snippet oo "\infty" wAmm
+\infty
+endsnippet
+
+snippet ... "cdots" iAm
+\cdots 
+endsnippet
+
+# +... -> , \cdots
+# -  ... -> , \cdots
+# add a space if there already is one.
+priority 101
+snippet `(?<=[-+])\s*\.\.\.` "smart cdots" irA
+ \cdots 
+endsnippet
+
+# It seems that \ldots is only used when , ..., 
+# ,... -> , \ldots
+# ,  ... -> , \ldots
+priority 101
+snippet `(?<=,)(\s*)\.\.\.` "smart ldots" irA
+ \ldots 
+endsnippet
+
+snippet ** "dot multiply" iAm
+\cdot 
+endsnippet
+
+snippet xx "cross" iAm
+\times 
+endsnippet
+
+snippet eps "epsilon" wAm
+\epsilon
+endsnippet
+
+snippet `(?<=\b|\d+)(?<!\\)(ell|nabla|notin)` "symbol" iAm
+\\``rv = m[1]``
+endsnippet
+
+
+snippet `(?<=\b|\d+)(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|oint|iiint|iint|int)` "ln" wAm
+\\``rv = m[1]``
+endsnippet
+
+snippet `(?<=\b|\d+)(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp)` "ln" wAm
+\\``rv = m[1]``
+endsnippet
+
+snippet `(?<=\b|\d+)(?<!\\)(mu|alpha|sigma|rho|beta|gamma|delta|zeta|eta|varepsilon|theta|iota|kappa|vartheta|lambda|nu|pi|rho|tau|upsilon|varphi|phi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)` "greek" wAm
+\\``rv = m[1]``
+endsnippet
+
+# ==== Space Symbol ====
+snippet `(?<=\b|\d+)(?<!\\)(quad)` "ln" wAm
+\\``rv = m[1]``
+endsnippet
+
+# ==== Logic Symbol ====
+
+
+snippet -> "to" iAm
+\to 
+endsnippet
+
+snippet !> "mapsto" iAm
+\mapsto 
+endsnippet
+
+snippet vdash "vdash" iAm
+\\vdash
+endsnippet
+
+snippet => "implies" iAm
+\implies
+endsnippet
+
+snippet =< "implied by" iAm
+\impliedby
+endsnippet
+
+snippet iff "if and only if" iAm
+\iff
+endsnippet
+
+snippet EE "exist" iAm
+\exists 
+endsnippet
+
+
+snippet AA "forall" iAm
+\forall 
+endsnippet
+
+snippet bec "because" iAm
+\because 
+endsnippet
+
+snippet thr "therefore" iAm
+\therefore 
+endsnippet
+
+
+# ==== Compare Symbol ====
+
+snippet -- "setminus" iAm
+\setminus
+endsnippet
+
+snippet >= "greater than" iAm
 \geqslant $0
 endsnippet
 
@@ -66,7 +363,7 @@ snippet dis "displaystyle" iAm
 \displaystyle 
 endsnippet
 
-snippet <= "Fraction" iAm
+snippet <= "less than" iAm
 \leqslant $0
 endsnippet
 
@@ -86,155 +383,18 @@ snippet ~= " Amppro equals2" iAm
 \cong
 endsnippet
 
-
-snippet || "mid" im
- \mid 
-endsnippet
-
-snippet `((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/` "Fraction no ()" iAm
-\frac{``rv = m[1]``}{$1}$0
-endsnippet
-
-snippet `^.*\)/` "Fraction with ()" Am
-``
-    let str = m[0];
-    str = str.slice(0, -1);
-    let lastIndex = str.length - 1;
-
-    let depth = 0;
-    let i = str.length - 1;
-
-    while (true) {
-        if (str[i] == ')') depth += 1;
-        if (str[i] == '(') depth -= 1;
-        if (depth == 0) break;
-        i -= 1;
-    }
-
-    let results = str.slice(0, i) + "\\frac{" + str.slice(i+1, -1) + "}";
-    results += "{$1}$0";
-    rv = results;
-    ``
+snippet >> ">>" iAm
+\gg
 endsnippet
 
 
-snippet `(\\?[a-zA-Z]\w*)(bar|BAR)` "Bar" iAm
-\overline{``rv = m[1]``}
+snippet << "<<" iAm
+\ll
 endsnippet
 
-snippet `(\\?[a-zA-Z]\w*)(td|TD)` "tilde" iAm
-\widetilde{``rv = m[1]``}
-endsnippet
+# == Auto Environment ==
 
-snippet `(\\?[a-zA-Z]\w*)(hat|HAT)` "hat" iAm
-\hat{``rv = m[1]``}
-endsnippet
-
-snippet `(\\?[a-zA-Z]\w*)(bf|BF)` "mathbf" iAm
-\mathbf{``rv = m[1]``}
-endsnippet
-
-snippet `(\\?[a-zA-Z]\w*)(bm|BM)` "bm" iAm
-\bm{``rv = m[1]``}
-endsnippet
-
-snippet bar "bar" iAm
-\overline{$1}$0
-endsnippet
-
-snippet hat "hat" iAm
-\hat{$1}$0
-endsnippet
-
-snippet `(\\?[a-zA-Z]\w*)(vec)` "Vector postfix" iAm
-\vec{``rv = m[1]``}
-endsnippet
-
-snippet `(\\?[a-zA-Z]\w*)(ra)` "Vector postfix" iAm
-\overrightarrow{``rv = m[1]``}
-endsnippet
-
-snippet `(\\?[a-zA-Z]\w*)(dot)` "dot" iAm
-\dot{``rv = m[1]``}
-endsnippet
-
-snippet `(\\?[a-zA-Z]\w*)(ddot)` "ddot" iAm
-\ddot{``rv = m[1]``}
-endsnippet
-
-snippet `(\\?[a-zA-Z]\w*)(bs)` "boldsymbol" iAm
-\boldsymbol{``rv = m[1]``}
-endsnippet
-
-snippet vdash "vdash" iAm
-\\vdash
-endsnippet
-
-snippet xb "vdash" iAm
-(x)
-endsnippet
-
-snippet yb "vdash" iAm
-(y)
-endsnippet
-
-snippet xyb "vdash" iAm
-(x,y)
-endsnippet
-
-snippet xyzb "vdash" iAm
-(x,y,z)
-endsnippet
-
-snippet jacobi "jacobi" iAm
-\\begin{pmatrix}\\frac{\\partial ${1:f}_1}{\\partial ${2:x}_1}&\\frac{\\partial ${1:f}_1}{\\partial ${2:x}_2}&\\cdots&\\frac{\\partial ${1:f}_1}{\\partial ${2:x}_${3:n}}\\\\\\frac{\\partial ${1:f}_2}{\\partial ${2:x}_1}&\\frac{\\partial ${1:f}_2}{\\partial ${2:x}_2}&\\cdots&\\frac{\\partial ${1:f}_2}{\\partial ${2:x}_${3:n}}\\\\\\vdots&\\vdots&\\ddots&\\vdots\\\\\\frac{\\partial ${1:f}_${3:m}}{\\partial ${2:x}_1}&\\frac{\\partial ${1:f}_${3:m}}{\\partial ${2:x}_2}&\\cdots&\\frac{\\partial ${1:f}_${3:m}}{\\partial ${2:x}_${3:n}}\\end{pmatrix}
-endsnippet
-
-snippet HH "H" iAm
-\mathbb{H}
-endsnippet
-
-snippet dd "d" iAm
-\mathrm{d}
-endsnippet
-
-snippet DD "D" iAm
-\mathbb{D}
-endsnippet
-
-snippet RR "R" iAm
-\mathbb{R}
-endsnippet
-
-snippet NN "N" iAm
-\mathbb{N}
-endsnippet
-
-snippet QQ "Q" iAm
-\mathbb{Q}
-endsnippet
-
-snippet ZZ "Z" iAm
-\mathbb{Z}
-endsnippet
-
-
-priority 100
-snippet ... "cdots" iAm
-\cdots 
-endsnippet
-
-snippet => "implies" Ami
-\implies
-endsnippet
-
-snippet =< "implied by" Ami
-\impliedby
-endsnippet
-
-snippet ifonlyif "if and only if" wAmm
-\iff
-endsnippet
+# ==== Auto Math Mode ====
 
 snippet im "inline Math" wA
 $${1}$$0
@@ -258,10 +418,21 @@ ${1}
 $$$0
 endsnippet
 
-priority 100
-snippet `([A-Za-z])(\d)` "auto subscript" wAmm
-`` rv = m[1]``_``rv = m[2]``
+# ==== Common Environment ====
+
+snippet case "cases" wAm
+\begin{cases}
+	$1 \\\\
+\end{cases}
 endsnippet
+
+snippet ali "aligned" wAm
+\begin{aligned}
+$1 \\\\
+\end{aligned}
+endsnippet
+
+# == Auto Adaptive Close ==
 
 snippet ceil "ceil" iAm
 \left\lceil $1 \right\rceil $0
@@ -271,29 +442,107 @@ snippet floor "floor" iAm
 \left\lfloor $1 \right\rfloor$0
 endsnippet
 
-snippet set "left( right)" Aim
-\\{${1}\\}$0
-endsnippet
-
-snippet lrb "left( right)" Aim
+priority 100
+snippet @( "left( right)" Aim
 \left( ${1} \right) $0
 endsnippet
 
-snippet lrv "left| right|" Aim
+priority 100
+snippet @| "left| right|" Aim
 \left| ${1} \right| $0
 endsnippet
 
-snippet lrc "left\{ right\}" Aim
+priority 100
+snippet @{ "left\{ right\}" Aim
 \left\\{ ${1} \right\\} $0
 endsnippet
 
-snippet lrs "left[ right]" Aim
+priority 100
+snippet @[ "left[ right]" Aim
 \left[ ${1} \right] $0
 endsnippet
 
-snippet lra "leftangle rightangle" iAm
+priority 100
+snippet @< "leftangle rightangle" iAm
 \left<${1} \right>$0
 endsnippet
+
+snippet ( "auto close ()" iA
+(${1})
+endsnippet
+
+snippet { "auto close {}" iA
+{${1}}
+endsnippet
+
+snippet [ "auto close []" iA
+[${1}]
+endsnippet
+
+snippet | "auto close ||" iAm
+|${1}|
+endsnippet
+
+snippet norm iAm
+\left\| ${1} \right\|_{$2}$3
+endsnippet
+
+# == Snippet ==
+
+# ==== General Snippet ====
+
+# ====== Lite Snippet ======
+
+snippet tag "tag" iAm
+\tag{$1}
+endsnippet
+
+snippet xyb "Auto (x, y)" iAm
+(x, y)
+endsnippet
+
+snippet xyzb "Auto (x, y ,z)" iAm
+(x, y, z)
+endsnippet
+
+priority 100
+snippet `\b([a-zA-Z])n(\d)` "x[n+1]" iAm
+``rv = m[1]``_{${1:n}+``rv = m[2]``}$0
+endsnippet
+
+# Unkown
+snippet rij "mrij" iAm
+(${1:x}_${2:n})_{${3:$2} \\in ${4:N}}$0
+endsnippet
+
+priority 200
+snippet abs "absolute value" iAm
+\left\vert ${1} \right\vert $0
+endsnippet
+
+snippet beg "begin{} / end{}" bA
+\\begin{$1}
+	$0
+\\end{$1}
+endsnippet
+
+# ======== N Series ========
+
+priority 100
+snippet comma "comma" iAm
+${1:\\alpha}_1,${1:\\alpha}_2,\\cdots,${1:\\alpha}_${2:n}
+endsnippet
+
+priority 100
+snippet plus "plus" iAm
+${1:k}_1${2:\\alpha}_1+${1:k}_2${2:\\alpha}_2+\\cdots+${1:k}_${3:n}${2:\\alpha}_${3:n}
+endsnippet
+
+snippet `\b([a-z])=n` "i=1,2,\cdots,n" wAm
+``rv = m[1]``=1,2,\cdots,n
+endsnippet
+
+# ======== Common Operator Snippet ========
 
 snippet sum "sum" wAm
 \sum_{n=${1:1}}^{${2:\infty}} ${3:a_n z^n}
@@ -319,120 +568,30 @@ snippet diff "d/dx" wAm
 \frac{\mathrm{d}${1:y}}{\mathrm{d}${2:x}}$0
 endsnippet
 
-snippet sq "\sqrt{}" iAm
-\sqrt{${1}}$0
+snippet buu "bigcup" wAm
+\bigcup_{${1:i \in ${2: I}}} $0
 endsnippet
 
-snippet pmat "pmat" wm
-\begin{pmatrix} 
-    ${1: } 
-\end{pmatrix} $0
-endsnippet
-
-snippet bmat "pmat" wm
-\begin{bmatrix} 
-    $1 
-\end{bmatrix} $0
-endsnippet
-
-snippet oo "\infty" wAmm
-\infty
-endsnippet
-
-snippet rij "mrij" iAm
-(${1:x}_${2:n})_{${3:$2} \\in ${4:N}}$0
-endsnippet
-
-snippet EE "geq" iAm
-\exists 
-endsnippet
-
-
-snippet AA "forall" iAm
-\forall 
-endsnippet
-
-
-snippet xnn "xn" iAm
-x_{n}
-endsnippet
-
-
-snippet ynn "yn" iAm
-y_{n}
-endsnippet
-
-
-snippet xii "xi" iAm
-x_{i}
-endsnippet
-
-snippet yii "yi" iAm
-y_{i}
-endsnippet
-
-
-snippet xjj "xj" iAm
-x_{j}
-endsnippet
-
-
-snippet yjj "yj" iAm
-y_{j}
-endsnippet
-
-
-snippet `(\d[a-zA-Z]|\\mu|\\alpha|\\sigma|\\rho|\\beta|\\gamma|\\delta|\\zeta|\\eta|\\varepsilon|\\theta|\\iota|\\kappa|\\vartheta|\\lambda|\\nu|\\pi|\\rho|\\tau|\\upsilon|\\phi|\\chi|\\psi|\\omega|\\Gamma|\\Delta|\\Theta|\\Lambda|\\Xi|\\Pi|\\Sigma|\\Upsilon|\\Phi|\\Psi|\\Omega)ii` "?i" iAm
-``rv = m[1]``_{i}
+snippet bnn "bigcap" wAm
+\bigcap_{${1:i \in ${2: I}}} $0
 endsnippet
 
 priority 100
-snippet `\b([a-zA-Z])jj` "?j" riAm
-``rv = m[1]``_{j}
+snippet `(DINT|dint)` "integral" wAm
+\int_{${1:-\infty}}^{${2:\infty}} ${3} \\mathrm{d}${4:x} $0
 endsnippet
 
+# Custom: Can add more defined operator
 priority 100
-snippet `(\d[a-zA-Z]|\\mu|\\alpha|\\sigma|\\rho|\\beta|\\gamma|\\delta|\\zeta|\\eta|\\varepsilon|\\theta|\\iota|\\kappa|\\vartheta|\\lambda|\\nu|\\pi|\\rho|\\tau|\\upsilon|\\phi|\\chi|\\psi|\\omega|\\Gamma|\\Delta|\\Theta|\\Lambda|\\Xi|\\Pi|\\Sigma|\\Upsilon|\\Phi|\\Psi|\\Omega)jj` "?j" iAm
-``rv = m[1]``_{j}
+snippet `(?<![\a-zA-Z])(rank|lcm|gcd)` "math function" wAm
+\\operatorname{``rv = m[1]``}
 endsnippet
 
-priority 10000
-snippet `\b([a-zA-Z])n(\d)` "x[n+1]" iAm
-``rv = m[1]``_{${1:n}+``rv = m[2]``}$0
+snippet `(?<![\a-zA-Z])arg(max|min)` "argmin/max" wAm
+\mathop{\arg\\``rv = m[1]``}
 endsnippet
 
-
-snippet xn1 "x" iAm
-x_{n+1}
-endsnippet
-
-snippet xmm "x" iAm
-x_{m}
-endsnippet
-
-snippet R+ "R0+" iAm
-R_0^+
-endsnippet
-
-snippet xx "cross" iAm
-\times 
-endsnippet
-
-snippet xx "cross" iAm
-\times 
-endsnippet
-
-snippet case "cases" wAm
-\begin{cases}
-	$1 \\\\
-\end{cases}
-endsnippet
-
-snippet ali "aligned" wAm
-\begin{aligned}
-$1 \\\\
-\end{aligned}
-endsnippet
+# ====== Big Snippet ======
 
 snippet bigdef "Big function" iAm
 \begin{equation$6}
@@ -472,241 +631,67 @@ snippet iid "independent and identical distribution" iAm
 \overset{\text{i.i.d.}}{\sim}
 endsnippet
 
-
 snippet defe "define equal" wAm
 \overset{\underset{\mathrm{def}}{}}{=}
 endsnippet
 
-snippet `(?<!i)stt` "text subscript" iAm
-_\text{$1} $0
+
+# == Matrix ==
+
+# ==== Static Matrix ====
+
+snippet pmat "pmat" wm
+\begin{pmatrix} 
+    ${1: } 
+\end{pmatrix} $0
 endsnippet
 
-snippet `(?<!i)stit` "text subscript" iAm
-_\textit{$1} $0
+snippet bmat "pmat" wm
+\begin{bmatrix} 
+    $1 
+\end{bmatrix} $0
 endsnippet
 
-snippet tt "text" iAm
-\text{$1}$0
+snippet vecC "column vector" iAm
+\begin{pmatrix} ${1:x}_1 \\\\ ${1:x}_2 \\\\ \vdots \\\\ ${1:x}_${2:n} \end{pmatrix}
 endsnippet
 
-snippet uu "unit text" iAm
-\ \text{$1}$0
-endsnippet
-
-snippet tit "text it" iAm
-\textit{$1}$0
-endsnippet
-
-snippet `(\\\\)([a-zA-Z])` im
-\mathbb{``rv = m[2]``}
-endsnippet
-
-snippet notin wAm
-\notin
-endsnippet
-
-snippet buu "bigcup" wAm
-\bigcup_{${1:i \in ${2: I}}} $0
-endsnippet
-
-snippet bnn "bigcap" wAm
-\bigcap_{${1:i \in ${2: I}}} $0
-endsnippet
-
-snippet invs "inverse" wAm
-^{-1}
-endsnippet
-
-priority 10000
-snippet `(trans|TRANS)` "inverse" wAm
-^{T}
-endsnippet
-
-snippet compl "complement" wAm
-^{c}
-endsnippet
-
-priority 100
-snippet -> "to" iAm
-\to 
-endsnippet
-
-
-snippet !> "mapsto" iAm
-\mapsto 
-endsnippet
-
-
-snippet cvec "column vector" iAm
-\begin{pmatrix} ${1:x}_${2:1}\\\\ \vdots \\\\ $1_${3:n} \end{pmatrix}$0
-endsnippet
-
-snippet rvec "row vector" iAm
-\begin{pmatrix} ${1:x}_${2:1}, \cdots ,$1_${3:n} \end{pmatrix}$0
+snippet vecR "row vector" iAm
+\begin{pmatrix} ${1:x}_1, ${1:x}_2, \cdots, ${1:x}_${2:n} \end{pmatrix}$0
 endsnippet
 
 priority 300
-snippet `(DINT|dint)` "integral" wAm
-\int_{${1:-\infty}}^{${2:\infty}} ${3} \\mathrm{d}${4:x} $0
+snippet omis "omission" iAm
+\\begin{pmatrix}${1:1}&${2:1}&\\cdots&${4:1}\\\\${5:1}&${6:1}&\\cdots&${8:1}\\\\\\vdots&\\vdots&\\ddots&\\vdots\\\\${13:1}&${14:1}&\\cdots&${16:1}\\end{pmatrix}
 endsnippet
 
-priority 100
-snippet `(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp)` "ln" wAm
-\\``rv = m[1]``
+priority 300
+snippet submat "omission" iAm
+\\begin{pmatrix}
+    ${1:a}_{11} & ${1:a}_{12} & \\cdots & ${1:a}_{1n} \\\\
+    ${1:a}_{21} & ${1:a}_{22} & \\cdots & ${1:a}_{2n} \\\\
+    \\vdots & \\vdots & \\ddots & \\vdots \\\\
+    ${1:a}_{n1} & ${1:a}_{n2} & \\cdots & ${1:a}_{nn}
+\\end{pmatrix}
 endsnippet
 
-priority 10000
-snippet `(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|oint|iiint|iint|int)` "ln" wAm
-\\``rv = m[1]``
+priority 300
+snippet subplusmat "omission" iAm
+\\begin{pmatrix}
+    ${1:a}_{11}+{2:b}_{11} & ${1:a}_{12}+{2:b}_{12} & \\cdots & ${1:a}_{1n}+{2:b}_{1n} \\\\
+    ${1:a}_{21}+{2:b}_{21} & ${1:a}_{22}+{2:b}_{22} & \\cdots & ${1:a}_{2n}+{2:b}_{2n} \\\\
+    \\vdots & \\vdots & \\ddots & \\vdots \\\\
+    ${1:a}_{n1}+{2:b}_{n1} & ${1:a}_{n2}+{2:b}_{n2} & \\cdots & ${1:a}_{nn}+{2:b}_{nn}
+\\end{pmatrix}
 endsnippet
 
-priority 200
-
-snippet `(mu|alpha|sigma|rho|beta|gamma|delta|zeta|eta|varepsilon|theta|iota|kappa|vartheta|lambda|nu|pi|rho|tau|upsilon|varphi|phi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)` "greek" wAm
-\\``rv = m[0]``
+snippet jacobi "jacobi" iAm
+\\begin{pmatrix}\\frac{\\partial ${1:f}_1}{\\partial ${2:x}_1}&\\frac{\\partial ${1:f}_1}{\\partial ${2:x}_2}&\\cdots&\\frac{\\partial ${1:f}_1}{\\partial ${2:x}_${3:n}}\\\\\\frac{\\partial ${1:f}_2}{\\partial ${2:x}_1}&\\frac{\\partial ${1:f}_2}{\\partial ${2:x}_2}&\\cdots&\\frac{\\partial ${1:f}_2}{\\partial ${2:x}_${3:n}}\\\\\\vdots&\\vdots&\\ddots&\\vdots\\\\\\frac{\\partial ${1:f}_${3:m}}{\\partial ${2:x}_1}&\\frac{\\partial ${1:f}_${3:m}}{\\partial ${2:x}_2}&\\cdots&\\frac{\\partial ${1:f}_${3:m}}{\\partial ${2:x}_${3:n}}\\end{pmatrix}
 endsnippet
 
-priority 100
+# ==== Dynamic Matrix ====
 
-snippet `(?<![\\a-zA-Z])(diAmg|rank|lcm)` "math function" wAm
-\\operatorname{``rv = m[1]``}
-endsnippet
-// tr 尚未加入
-
-snippet `(?<![\\a-zA-Z])arg(max|min)` "argmin/max" wAm
-\mathop{\arg\\ ``rv = m[1]``}
-endsnippet
-
-snippet ' "prime" i
-^\prime
-endsnippet
-
-
-snippet -- "setminus" iAm
-\setminus
-endsnippet
-
-snippet norm "norm" iAm
-\| $1 \| $0
-endsnippet
-
-snippet lll "l" iAm
-\ell
-endsnippet
-
-snippet nabla "nabla" iAm
-\nabla 
-endsnippet
-
-snippet `(?<!\\)nabla` "nabla" iAm
-\nabla 
-endsnippet
-
-snippet tp "to the ... power" iAm
-^{${1:2}}$0
-endsnippet
-
-snippet sb "to the ... power" iAm
-_{${1:2}}$0
-endsnippet
-
-snippet sr "square" iAm
-^{2}$0
-endsnippet
-
-snippet cb "square" iAm
-^{3}$0
-endsnippet
-
-priority 100
-snippet mcal "mathcal" im
-\mathcal{$1}$0
-endsnippet
-
-snippet mbb "mathbb" iAm
-\mathbb{$1}$0
-endsnippet
-
-snippet bec "mathbb" iAm
-\because 
-endsnippet
-
-snippet thr "mathbb" iAm
-\therefore 
-endsnippet
-
-priority 10000
-snippet `([a-zA-Z])mcal` "mathcal" iAm
-\mathcal{\\MakeUppercase{``rv = m[1]``}} $0
-endsnippet
-
-priority 100
-snippet ** "dot multiply" iAm
-\cdot 
-endsnippet
-
-snippet abs "abstract value" iAm
-\left\vert ${1} \right\vert $0
-endsnippet
-
-
-snippet >> ">>" iAm
-\gg
-endsnippet
-
-
-snippet << "<<" iAm
-\ll
-endsnippet
-
-
-snippet mean "Expectation" iAm
-\mathbb{E}\left[ $1 \right] $0
-endsnippet
-
-
-
-snippet cov "CovariAmnce" iAm
-\mathrm{Cov} 
-endsnippet
-
-
-snippet conv "convex composition" iAm
-${1:\alpha} ${2:x} + (1 - $1) ${3:y}
-endsnippet
-
-
-snippet i= "i=1,2,\cdots,n" wAm
-i=1,2,\cdots,n
-endsnippet
-
-
-snippet eps "epsilon" wAm
-\epsilon
-endsnippet
-
-snippet tag "epsilon" iAm
-\\tag{$1}
-endsnippet
-
-snippet lye "lyapunov equation" wAm
-PA + A^{T}P = ${1:-Q} $0
-endsnippet
-
-
-
-snippet letw "let omega" iAm
-Let $\Omega \subset C$ be open.
-endsnippet
-
-snippet \box "Box" 
-``rv = '┌' + '─'.repeat(t[0].length + 2) + '┐'``
-│ $1 │
-``rv = '└' + '─'.repeat(t[0].length + 2) + '┘'``
-endsnippet
-
-
-priority 2000
+priority 300
 snippet `(b|p|v)mata([1-9])` "bmatrix" iwAm
 \\begin{``rv = m[1]``matrix}``
 	let len = m[2];
@@ -718,70 +703,40 @@ snippet `(b|p|v)mata([1-9])` "bmatrix" iwAm
 ``\\end{``rv = m[1]``matrix}$0
 endsnippet
 
-priority 2000
-snippet `(b|p|v)mat([1-9]{1})` "bmatrix" iwAm
+priority 300
+snippet `(b|p|v)mat([1-9])` "bmatrix" iwAm
 \\begin{``rv = m[1]``matrix}``
 	rv = gen_matrix(m[2],m[2]);
 ``\\end{``rv = m[1]``matrix}$0
 endsnippet
 
-priority 3000
-snippet `vec([1-9]{1})` "col vector" iwAm
+priority 300
+snippet `vec([1-9])` "col vector" iwAm
 \\begin{pmatrix}``
     rv = gen_matrix(m[1], 1);
 ``\\end{pmatrix}$0
 endsnippet
 
-priority 3000
-snippet `vecr([1-9]{1})` "row vector" iwAm
+priority 300
+snippet `vecr([1-9])` "row vector" iwAm
 \\begin{pmatrix}``
     rv = gen_matrix(1, m[1]);
 ``\\end{pmatrix}$0
 endsnippet
 
-priority 3000
-snippet vecn "vector n" iAm
-\\begin{pmatrix}${1:x}_1\\\\${1:x}_2\\\\\\vdots\\\\${1:x}_n\\end{pmatrix}
+
+# == General ==
+
+snippet \box "Box" 
+``rv = '┌' + '─'.repeat(t[0].length + 2) + '┐'``
+│ $1 │
+``rv = '└' + '─'.repeat(t[0].length + 2) + '┘'``
 endsnippet
 
-priority 3000
-snippet comma "comma" iAm
-${1:\\alpha}_1,${1:\\alpha}_2,\\cdots,${1:\\alpha}_${2:n}
-endsnippet
 
-priority 3000
-snippet plus "plus" iAm
-${1:k}_1${2:\\alpha}_1+${1:k}_2${2:\\alpha}_2+\\cdots+${1:k}_${3:n}${2:\\alpha}_${3:n}
-endsnippet
-
-priority 3000
-snippet omis "omission" iAm
-\\begin{pmatrix}${1:1}&${2:1}&\\cdots&${4:1}\\\\${5:1}&${6:1}&\\cdots&${8:1}\\\\\\vdots&\\vdots&\\ddots&\\vdots\\\\${13:1}&${14:1}&\\cdots&${16:1}\\end{pmatrix}
-endsnippet
-
-priority 3000
-snippet submat "omission" iAm
-\\begin{pmatrix}
-    ${1:a}_{11} & ${1:a}_{12} & \\cdots & ${1:a}_{1n} \\\\
-    ${1:a}_{21} & ${1:a}_{22} & \\cdots & ${1:a}_{2n} \\\\
-    \\vdots & \\vdots & \\ddots & \\vdots \\\\
-    ${1:a}_{n1} & ${1:a}_{n2} & \\cdots & ${1:a}_{nn}
-\\end{pmatrix}
-endsnippet
-
-priority 3000
-snippet subplusmat "omission" iAm
-\\begin{pmatrix}
-    ${1:a}_{11}+{2:b}_{11} & ${1:a}_{12}+{2:b}_{12} & \\cdots & ${1:a}_{1n}+{2:b}_{1n} \\\\
-    ${1:a}_{21}+{2:b}_{21} & ${1:a}_{22}+{2:b}_{22} & \\cdots & ${1:a}_{2n}+{2:b}_{2n} \\\\
-    \\vdots & \\vdots & \\ddots & \\vdots \\\\
-    ${1:a}_{n1}+{2:b}_{n1} & ${1:a}_{n2}+{2:b}_{n2} & \\cdots & ${1:a}_{nn}+{2:b}_{nn}
-\\end{pmatrix}
-endsnippet
-
+priority 300
 snippet `table(\d)(\d)` "create table with rows and columns" wA
 ``
 rv = createTable(m[1], m[2]);
 ``
 endsnippet
-
