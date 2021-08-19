@@ -134,19 +134,15 @@ snippet R+ "R0+" iAm
 R_0^+
 endsnippet
 
-snippet td "superscript" iAm
-^{${1}}$0
-endsnippet
-
 snippet pow "power" iAm
 ^{${1:2}}$0
 endsnippet
 
-snippet cb "cubic" iAm
-^{3}$0
-endsnippet
-
 # == Subscript Operation ==
+
+snippet td "subscript" iAm
+_{${1}}$0
+endsnippet
 
 snippet `([A-Za-z])(\d)` "auto subscript" wAm
 `` rv = m[1] + "_" + m[2]``
@@ -574,8 +570,30 @@ snippet bnn "bigcap" wAm
 endsnippet
 
 priority 100
-snippet `(DINT|dint)` "integral" wAm
-\int\limits_{${1:-\infty}}^{${2:\infty}} ${3} \\mathrm{d}${4:x} $0
+snippet dint "integral" wAm
+\int_{${1:-\infty}}^{${2:\infty}} ${3} ~\\mathrm{d}${4:x} $0
+endsnippet
+
+priority 200
+snippet `c(o|n)?(l|n)?(b|c)?int` "s integral" wAm
+``
+let final = "\\"; // init
+let isO = m[1] == "o";
+(isO) ? final += "o" : "" // o option
+let b = 1;
+let isL = m[2] == "l";
+(m[3] == 'b') ? b = 2 : (m[3] == 'c') ? b = 3 : 1;
+for (let i = 0; i < b - 1; i++) {
+final += "i";
+}
+final += "int";
+final += ((b >= 2) || (b != 1 && !isO && isL)) ? "\\limits" : "";
+let r = (b == 3) ? "E" : (b == 1 && (isL || isO)) ? "C" : "R";
+final += ((b >= 2) || isO || (b == 1 && isL)) ? "_{${1:" + r + "}}" : "_{${1:-\\infty}}^{${2:\\infty}}";
+let x = (b == 2) ? "A" : (b == 3) ? "V" : (b == 1 && isL) ? "s" : "x";
+final += " ${3} ~\\mathrm{d}${4:" + x + "} $0";
+rv = final;
+``
 endsnippet
 
 # Custom: Can add more defined operator
@@ -737,7 +755,6 @@ snippet `table(\d)(\d)` "create table with rows and columns" wA
 rv = createTable(m[1], m[2]);
 ``
 endsnippet
-
 
 
 
