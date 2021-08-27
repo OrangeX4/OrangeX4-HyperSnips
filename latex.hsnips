@@ -58,7 +58,7 @@ endglobal
 
 
 snippet // "Fraction" iAm
-\frac{$1}{$2}$0
+\\frac{${1:${VISUAL}}}{$2}$0
 endsnippet 
 
 snippet `((\d+)|(\d*)(\\)?([A-Za-z!]+)((\^|_)(\{\d+\}|\d))*)/` "Fraction no ()" iAm
@@ -278,21 +278,12 @@ snippet eps "epsilon" wAm
 \epsilon
 endsnippet
 
-snippet `(?<=\b|\d+)(?<!\\)(ell|nabla|notin)` "symbol" iAm
-\\``rv = m[1]``
-endsnippet
-
-
-snippet `(?<=\b|\d+)(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|oint|iiint|iint|int)` "ln" wAm
-\\``rv = m[1]``
-endsnippet
-
-snippet `(?<=\b|\d+)(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp)` "ln" wAm
-\\``rv = m[1]``
+snippet `(?<=\b|\d+)(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp|arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|oint|iiint|iint|int|ell|nabla|notin)` "function" wAm
+\\``rv = m[1]`` 
 endsnippet
 
 snippet `(?<=\b|\d+)(?<!\\)(mu|alpha|sigma|rho|beta|gamma|delta|zeta|eta|varepsilon|theta|iota|kappa|vartheta|lambda|nu|pi|rho|tau|upsilon|varphi|phi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)` "greek" wAm
-\\``rv = m[1]``
+\\``rv = m[1]`` 
 endsnippet
 
 # ==== Space Symbol ====
@@ -392,20 +383,8 @@ endsnippet
 
 # ==== Auto Math Mode ====
 
-snippet im "inline Math" wA
+snippet lm "inline Math" wA
 $${1}$$0
-endsnippet
-
-snippet im "inline Math" wA
-$${1}$``
-let str = t[0];
-let test = str.charAt(str.length - 1);
-if (test != ',' &&  test != '.' &&  test != '-' && test !='?' && test !=' '){
-	rv = ' ';
-}
-else{
-	rv = '';
-}``$2
 endsnippet
 
 snippet dm "display Math" wA
@@ -475,6 +454,7 @@ snippet [ "auto close []" iA
 [${1}]
 endsnippet
 
+priority 200
 snippet norm iAm
 \left\| ${1} \right\|_{$2}$3
 endsnippet
@@ -575,7 +555,7 @@ snippet dint "integral" wAm
 endsnippet
 
 priority 200
-snippet `c(o|n)?(l|n)?(b|c)?int` "s integral" wAm
+snippet `c(o|n)?(l|n)?(b|c)?int` "s 	egral" wAm
 ``
 let final = "\\"; // init
 let isO = m[1] == "o";
@@ -755,6 +735,8 @@ snippet `table(\d)(\d)` "create table with rows and columns" wA
 rv = createTable(m[1], m[2]);
 ``
 endsnippet
+
+
 
 
 
