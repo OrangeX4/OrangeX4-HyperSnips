@@ -1,6 +1,6 @@
 # OrangeX4's HyperSnips
 
-You can use it in vscode instead of vim like 
+You can use it in vscode instead of vim like
 https://castel.dev/post/lecture-notes-1/#fractions
 
 Use it via vscode extension https://marketplace.visualstudio.com/items?itemName=OrangeX4.hsnips
