@@ -37,17 +37,20 @@ function tes_matrix(nrow, ncol,t) {
 
 // 输出一个表格
 function createTable(rows, cols) {
-    let ret = "";
-    for (let i = 0; i < parseInt(rows) + 2; i++) {
+    let ret = "\\begin{table}[htpb]\n\\centering\n\\caption{caption}\n\\label{tab:label}}\n\\begin{tabular}{";
+	ret += "c".repeat(parseInt(cols));
+	ret += "}\n";
+    for (let i = 0; i < parseInt(rows); i++) {
         for (let j = 0; j < parseInt(cols); j++) {
-            if (i === 1) {
-                ret += "|---";
+            if (j === parseInt(cols)-1) {
+                ret += "\\".repeat(4);
             } else {
-                ret += "|  ";
+                ret += " & ";
             }
         }
-        ret += "|\n"
+        ret += "\n"
     }
+	ret += "\\end{tabular}\n\\end{table}";
     return ret;
 }
 
