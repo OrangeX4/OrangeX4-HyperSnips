@@ -604,7 +604,7 @@ snippet bigmin "Optimization problem" iAm
 		\text{s.t.} &\quad ${2:g(x)} \leq 0\\\\
 					&\quad ${3:h(x)} = 0\\\\
 	\end{aligned}
-\end{equaiton$4}$0
+\end{equation$4}$0
 endsnippet
 
 snippet bigmax "Optimization problem" wAm
