@@ -3,14 +3,27 @@ global
 function gen_matrix(nrow, ncol) {
 	let results = "";
 	let order = 1;
-	for (var i=0; i<nrow; i++){
-		results += '	';
-		for(var j = 0;j <ncol-1;j++){
-			results += "$" +(order ).toString() + " & ";
+	for (var i=0; i < nrow; i++){
+		results += ' ';
+		for(var j = 0; j < ncol - 1; j++){
+			results += "$" + (order).toString() + " & ";
 			order ++;
 		}
-		results += "$"+(order).toString() +" \\\\" + "\\ ";
+		results += "$" + (order).toString() + " \\\\" + "\\";
 		order ++;
+	}
+	return results;
+}
+
+function gen_matrix_transposed(nrow, ncol) {
+	let results = "";
+	for (var i = 0; i < nrow; i++){
+		results += ' ';
+        var j = 0;
+		for(; j < ncol - 1;j++){
+			results += "$" + (i + j * ncol + 1).toString() + " & ";
+		}
+		results += "$" + (i + j * ncol + 1).toString() + " \\\\" + "\\";
 	}
 	return results;
 }
@@ -37,20 +50,19 @@ function tes_matrix(nrow, ncol,t) {
 
 // 输出一个表格
 function createTable(rows, cols) {
-    let ret = "\\begin{table}[htpb]\n\\centering\n\\caption{caption}\n\\label{tab:label}}\n\\begin{tabular}{";
-	ret += "c".repeat(parseInt(cols));
-	ret += "}\n";
-    for (let i = 0; i < parseInt(rows); i++) {
+    let ret = "";
+    let order = 1;
+    for (let i = 0; i < parseInt(rows) + 2; i++) {
         for (let j = 0; j < parseInt(cols); j++) {
-            if (j === parseInt(cols)-1) {
-                ret += "\\".repeat(4);
+            if (i === 1) {
+                ret += "|---";
             } else {
-                ret += " & ";
+                ret += "| $" + (order).toString() + " ";
+                order++;
             }
         }
-        ret += "\n"
+        ret += "|\n"
     }
-	ret += "\\end{tabular}\n\\end{table}";
     return ret;
 }
 
@@ -141,10 +153,26 @@ snippet pow "power" iAm
 ^{${1:2}}$0
 endsnippet
 
+snippet tp "to the ... power" iAm
+^{${1:2}}$0
+endsnippet
+
+snippet sr "square" iAm
+^{2}$0
+endsnippet
+
+snippet cb "cube" iAm
+^{3}$0
+endsnippet
+
 # == Subscript Operation ==
 
 snippet td "subscript" iAm
 _{${1}}$0
+endsnippet
+
+snippet sb "subscript" iAm
+_{${1:2}}$0
 endsnippet
 
 snippet `([A-Za-z])(\d)` "auto subscript" wAm
@@ -177,6 +205,7 @@ endsnippet
 snippet `(\\mu|\\alpha|\\sigma|\\rho|\\beta|\\gamma|\\delta|\\zeta|\\eta|\\varepsilon|\\theta|\\iota|\\kappa|\\vartheta|\\lambda|\\nu|\\pi|\\rho|\\tau|\\upsilon|\\phi|\\chi|\\psi|\\omega|\\Gamma|\\Delta|\\Theta|\\Lambda|\\Xi|\\Pi|\\Sigma|\\Upsilon|\\Phi|\\Psi|\\Omega)S([a-z])\2` "auto subscript for greek letter" iAm
 `` rv = m[1] + "_{${1:" + m[2].substring(0, 1) + "}}$2"``
 endsnippet
+
 
 # == Font Operation ==
 
@@ -297,6 +326,19 @@ endsnippet
 # ==== Logic Symbol ====
 
 
+snippet ini "in" iAm
+\in 
+endsnippet
+
+snippet sse "in" iAm
+\subseteq 
+endsnippet
+
+priority 200
+snippet `(?<=\b|\d+)(?<!\\)(to|cap|cup|land|lor|oplus)` "logic" wAm
+\\``rv = m[1]`` 
+endsnippet
+
 snippet -> "to" iAm
 \to 
 endsnippet
@@ -324,7 +366,6 @@ endsnippet
 snippet EE "exist" iAm
 \exists 
 endsnippet
-
 
 snippet AA "forall" iAm
 \forall 
@@ -381,6 +422,7 @@ endsnippet
 snippet << "<<" iAm
 \ll
 endsnippet
+
 
 # == Auto Environment ==
 
@@ -708,6 +750,13 @@ snippet `(b|p|v)mat([1-9])` "bmatrix" iwAm
 ``\\end{``rv = m[1]``matrix}$0
 endsnippet
 
+priority 2000
+snippet `(b|p|v)matr([1-9]{1})` "bmatrix" iiAm
+\\begin{``rv = m[1]``matrix}``
+	rv = gen_matrix_transposed(m[2],m[2]);
+``\\end{``rv = m[1]``matrix}$0
+endsnippet
+
 priority 300
 snippet `vec([1-9])` "col vector" iwAm
 \\begin{pmatrix}``
@@ -737,80 +786,4 @@ snippet `table(\d)(\d)` "create table with rows and columns" wA
 ``
 rv = createTable(m[1], m[2]);
 ``
-endsnippet
-
-
-
-
-
-// == LaTeX ==
-
-snippet template "Basic template" b
-\documentclass[a4paper]{article}
-
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{textcomp}
-\usepackage[dutch]{babel}
-\usepackage{amsmath, amssymb}
-
-
-% figure support
-\usepackage{import}
-\usepackage{xifthen}
-\pdfminorversion=7
-\usepackage{pdfpages}
-\usepackage{transparent}
-\newcommand{\incfig}[1]{%
-	\def\svgwidth{\columnwidth}
-	\import{./figures/}{#1.pdf_tex}
-}
-
-\pdfsuppresswarningpagegroup=1
-
-\begin{document}
-	$0
-\end{document}
-endsnippet
-
-snippet table "Table environment" b
-\begin{table}[${1:htpb}]
-	\centering
-	\caption{${2:caption}}
-	\label{tab:${3:label}}
-	\begin{tabular}{${5:c}}
-	$0${5/((?<=.)c|l|r)|./(?1: & )/g}
-	\end{tabular}
-\end{table}
-endsnippet
-
-snippet fig "Figure environment" b
-\begin{figure}[${1:htpb}]
-	\centering
-	${2:\includegraphics[width=0.8\textwidth]{$3}}
-	\caption{${4:$3}}
-	\label{fig:${5:${3/\W+/-/g}}}
-\end{figure}
-endsnippet
-
-snippet enum "Enumerate" bA
-\begin{enumerate}
-	\item $0
-\end{enumerate}
-endsnippet
-
-snippet item "Itemize" bA
-\begin{itemize}
-	\item $0
-\end{itemize}
-endsnippet
-
-snippet desc "Description" b
-\begin{description}
-	\item[$1] $0
-\end{description}
-endsnippet
-
-snippet pac "Package" b
-\usepackage[${1:options}]{${2:package}}$0
 endsnippet
