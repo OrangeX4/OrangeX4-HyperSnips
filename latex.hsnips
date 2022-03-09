@@ -161,10 +161,6 @@ snippet sr "square" iAm
 ^{2}$0
 endsnippet
 
-snippet cb "cube" iAm
-^{3}$0
-endsnippet
-
 # == Subscript Operation ==
 
 snippet td "subscript" iAm
@@ -235,6 +231,22 @@ snippet mbf "mathbm" iAm
 \mathbf{$1}$0
 endsnippet
 
+snippet RR "R" iAm
+\mathbb{R}
+endsnippet
+
+snippet ZZ "Z" iAm
+\mathbb{Z}
+endsnippet
+
+snippet QQ "Q" iAm
+\mathbb{Q}
+endsnippet
+
+snippet CC "C" iAm
+\mathbb{C}
+endsnippet
+
 # ==== Dynamic Operation ====
 
 priority 100
@@ -254,7 +266,7 @@ endsnippet
 
 priority 100
 snippet `(\\?[a-zA-Z]\w*)mcal` "mathcal" iAm
-\mathcal{``rv = m[1].toUpperCase() ``} $0
+\mathcal{``rv = m[1].toUpperCase()``}$0
 endsnippet
 
 priority 100
@@ -264,7 +276,7 @@ endsnippet
 
 priority 100
 snippet `(\\?[a-zA-Z]\w*)mbb` iAm
-\mathbb{``rv = m[1]``} $0
+\mathbb{``rv = m[1]``}$0
 endsnippet
 
 
@@ -310,12 +322,12 @@ snippet eps "epsilon" wAm
 \epsilon
 endsnippet
 
-snippet `(?<=\b|\d+)(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp|arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|oint|iiint|iint|int|ell|nabla|notin)` "function" wAm
+snippet `(?<=\b|\d+)(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp|arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|oint|iiint|iint|int|ell|nabla|notin|not)` "function" wAm
 \\``rv = m[1]`` 
 endsnippet
 
 snippet `(?<=\b|\d+)(?<!\\)(mu|alpha|sigma|rho|beta|gamma|delta|zeta|eta|varepsilon|theta|iota|kappa|vartheta|lambda|nu|pi|rho|tau|upsilon|varphi|phi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)` "greek" wAm
-\\``rv = m[1]`` 
+\\``rv = m[1]``
 endsnippet
 
 # ==== Space Symbol ====
@@ -330,13 +342,26 @@ snippet ini "in" iAm
 \in 
 endsnippet
 
-snippet sse "in" iAm
+snippet sse "subseteq" iAm
 \subseteq 
 endsnippet
 
+snippet sqs "sqsubset" iAm
+\sqsubseteq 
+endsnippet
+
+snippet tto "to" iAm
+\to 
+endsnippet
+
 priority 200
-snippet `(?<=\b|\d+)(?<!\\)(to|cap|cup|land|lor|oplus)` "logic" wAm
+snippet `(?<=\b|\d+)(?<!\\)(cap|cup|land|lor|lnot|oplus|sqcap|sqcup|vdash|models)` "logic operator" wAm
 \\``rv = m[1]`` 
+endsnippet
+
+priority 200
+snippet `(?<=\b|\d+)(?<!\\)(bot|top)` "logic symbols" wAm
+\\``rv = m[1]``
 endsnippet
 
 snippet -> "to" iAm
@@ -345,10 +370,6 @@ endsnippet
 
 snippet !> "mapsto" iAm
 \mapsto 
-endsnippet
-
-snippet vdash "vdash" iAm
-\\vdash
 endsnippet
 
 snippet => "implies" iAm
@@ -478,6 +499,11 @@ snippet @{ "left\{ right\}" Aim
 endsnippet
 
 priority 100
+snippet set "\{ \}" Aim
+\\{ ${1} \\}$0
+endsnippet
+
+priority 100
 snippet @[ "left[ right]" Aim
 \left[ ${1} \right] $0
 endsnippet
@@ -570,11 +596,11 @@ snippet taylor "taylor" wAm
 endsnippet
 
 snippet `(?<!\\)lim` "limit" wAm
-\lim\limits_{${1:n} \to ${2:\infty}} 
+\lim\limits_{${1:n} \to ${2:\infty}}
 endsnippet
 
 snippet `(?<!\\)prod` "product" wAm
-\prod_{${1:n=${2:1}}}^{${3:\infty}} ${4:${VISUAL}} $0
+\prod_{${1:n=${2:1}}}^{${3:\infty}} ${4:${VISUAL}}$0
 endsnippet
 
 snippet `(?<!\\)part` "d/dx" wAm
@@ -596,7 +622,7 @@ endsnippet
 
 priority 100
 snippet dint "integral" wAm
-\int_{${1:-\infty}}^{${2:\infty}} ${3} ~\\mathrm{d}${4:x} $0
+\int_{${1:-\infty}}^{${2:\infty}} ${3} ~\\mathrm{d}${4:x}$0
 endsnippet
 
 priority 200
