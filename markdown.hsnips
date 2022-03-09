@@ -3,13 +3,13 @@ global
 function gen_matrix(nrow, ncol) {
 	let results = "";
 	let order = 1;
-	for (var i=0; i<nrow; i++){
-		results += '	';
-		for(var j = 0;j <ncol-1;j++){
-			results += "$" +(order ).toString() + " & ";
+	for (var i=0; i < nrow; i++){
+		results += ' ';
+		for(var j = 0; j < ncol - 1; j++){
+			results += "$" + (order).toString() + " & ";
 			order ++;
 		}
-		results += "$"+(order).toString() +" \\\\" + "\\ ";
+		results += "$" + (order).toString() + " \\\\" + "\\";
 		order ++;
 	}
 	return results;
@@ -51,12 +51,14 @@ function tes_matrix(nrow, ncol,t) {
 // 输出一个表格
 function createTable(rows, cols) {
     let ret = "";
+    let order = 1;
     for (let i = 0; i < parseInt(rows) + 2; i++) {
         for (let j = 0; j < parseInt(cols); j++) {
             if (i === 1) {
                 ret += "|---";
             } else {
-                ret += "|  ";
+                ret += "| $" + (order).toString() + " ";
+                order++;
             }
         }
         ret += "|\n"
@@ -151,10 +153,26 @@ snippet pow "power" iAm
 ^{${1:2}}$0
 endsnippet
 
+snippet tp "to the ... power" iAm
+^{${1:2}}$0
+endsnippet
+
+snippet sr "square" iAm
+^{2}$0
+endsnippet
+
+snippet cb "cube" iAm
+^{3}$0
+endsnippet
+
 # == Subscript Operation ==
 
 snippet td "subscript" iAm
 _{${1}}$0
+endsnippet
+
+snippet sb "subscript" iAm
+_{${1:2}}$0
 endsnippet
 
 snippet `([A-Za-z])(\d)` "auto subscript" wAm
@@ -187,6 +205,7 @@ endsnippet
 snippet `(\\mu|\\alpha|\\sigma|\\rho|\\beta|\\gamma|\\delta|\\zeta|\\eta|\\varepsilon|\\theta|\\iota|\\kappa|\\vartheta|\\lambda|\\nu|\\pi|\\rho|\\tau|\\upsilon|\\phi|\\chi|\\psi|\\omega|\\Gamma|\\Delta|\\Theta|\\Lambda|\\Xi|\\Pi|\\Sigma|\\Upsilon|\\Phi|\\Psi|\\Omega)S([a-z])\2` "auto subscript for greek letter" iAm
 `` rv = m[1] + "_{${1:" + m[2].substring(0, 1) + "}}$2"``
 endsnippet
+
 
 # == Font Operation ==
 
@@ -307,6 +326,14 @@ endsnippet
 # ==== Logic Symbol ====
 
 
+snippet iin "in" iAm
+\in 
+endsnippet
+
+snippet tto "to" iAm
+\to 
+endsnippet
+
 snippet -> "to" iAm
 \to 
 endsnippet
@@ -334,7 +361,6 @@ endsnippet
 snippet EE "exist" iAm
 \exists 
 endsnippet
-
 
 snippet AA "forall" iAm
 \forall 
@@ -391,6 +417,7 @@ endsnippet
 snippet << "<<" iAm
 \ll
 endsnippet
+
 
 # == Auto Environment ==
 
@@ -755,4 +782,3 @@ snippet `table(\d)(\d)` "create table with rows and columns" wA
 rv = createTable(m[1], m[2]);
 ``
 endsnippet
-
