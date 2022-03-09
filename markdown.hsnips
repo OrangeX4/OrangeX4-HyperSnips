@@ -326,12 +326,17 @@ endsnippet
 # ==== Logic Symbol ====
 
 
-snippet iin "in" iAm
+snippet ini "in" iAm
 \in 
 endsnippet
 
-snippet tto "to" iAm
-\to 
+snippet sse "in" iAm
+\subseteq 
+endsnippet
+
+priority 200
+snippet `(?<=\b|\d+)(?<!\\)(to|cap|cup|land|lor|oplus)` "logic" wAm
+\\``rv = m[1]`` 
 endsnippet
 
 snippet -> "to" iAm
