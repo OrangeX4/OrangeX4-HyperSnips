@@ -322,16 +322,16 @@ snippet eps "epsilon" wAm
 \epsilon
 endsnippet
 
-snippet `(?<=\b|\d+)(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp|arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|oint|iiint|iint|int|ell|nabla|notin|not)` "function" wAm
+snippet `(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp|arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|oint|iiint|iint|int|ell|nabla|notin|not)` "function" wAm
 \\``rv = m[1]`` 
 endsnippet
 
-snippet `(?<=\b|\d+)(?<!\\)(mu|alpha|sigma|rho|beta|gamma|delta|zeta|eta|varepsilon|theta|iota|kappa|vartheta|lambda|nu|pi|rho|tau|upsilon|varphi|phi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)` "greek" wAm
+snippet `(?<!\\)(mu|alpha|sigma|rho|beta|gamma|delta|zeta|eta|varepsilon|theta|iota|kappa|vartheta|lambda|nu|pi|rho|tau|upsilon|varphi|phi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)` "greek" wAm
 \\``rv = m[1]``
 endsnippet
 
 # ==== Space Symbol ====
-snippet `(?<=\b|\d+)(?<!\\)(quad)` "ln" wAm
+snippet `(?<!\\)(quad)` "ln" wAm
 \\``rv = m[1]``
 endsnippet
 
@@ -515,10 +515,6 @@ endsnippet
 
 snippet ( "auto close ()" iA
 (${1})
-endsnippet
-
-snippet { "auto close {}" iA
-{${1}}
 endsnippet
 
 snippet [ "auto close []" iA
