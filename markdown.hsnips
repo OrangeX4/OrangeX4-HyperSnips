@@ -73,6 +73,10 @@ endglobal
 
 
 snippet // "Fraction" iAm
+\\frac{$1}{$2}$0
+endsnippet 
+
+snippet /V/ "Fraction" iAm
 \\frac{${1:${VISUAL}}}{$2}$0
 endsnippet 
 
@@ -651,6 +655,11 @@ endsnippet
 
 snippet `(?<![\a-zA-Z])arg(max|min)` "argmin/max" wAm
 \mathop{\arg\\``rv = m[1]``}
+endsnippet
+
+priority 100
+snippet `(?<![\a-zA-Z])(atan2)` "atan2" wAm
+\\operatorname{``rv = m[1]``}
 endsnippet
 
 # ====== Big Snippet ======
