@@ -342,8 +342,16 @@ endsnippet
 # ==== Logic Symbol ====
 
 
+snippet empty "empty" iAm
+\empty
+endsnippet
+
 snippet ini "in" iAm
 \in 
+endsnippet
+
+snippet `\\ln ot` "in" iAm
+\lnot 
 endsnippet
 
 snippet sse "subseteq" iAm
@@ -412,7 +420,7 @@ snippet -- "setminus" iAm
 endsnippet
 
 snippet >= "greater than" iAm
-\geqslant $0
+\ge $0
 endsnippet
 
 snippet dis "displaystyle" iAm
@@ -420,7 +428,7 @@ snippet dis "displaystyle" iAm
 endsnippet
 
 snippet <= "less than" iAm
-\leqslant $0
+\le $0
 endsnippet
 
 snippet != "no equals" iAm
