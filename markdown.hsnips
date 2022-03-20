@@ -488,9 +488,9 @@ snippet eqt "equation" wA
 endsnippet
 
 snippet eqs "equation*" wA
-\begin{equation}
+\begin{equation*}
   ${1}
-\end{equation}
+\end{equation*}
 endsnippet
 
 # ==== Common Environment ====
@@ -545,14 +545,6 @@ endsnippet
 priority 100
 snippet @< "leftangle rightangle" iAm
 \left<${1} \right>$0
-endsnippet
-
-snippet ( "auto close ()" iA
-(${1})
-endsnippet
-
-snippet [ "auto close []" iA
-[${1}]
 endsnippet
 
 priority 200
@@ -637,7 +629,7 @@ snippet `(?<!\\)part` "d/dx" wAm
 \frac{\partial ${1:V}}{\partial ${2:x}}$0
 endsnippet
 
-priority 100
+priority 300
 snippet `(?<!\\)diff` "d/dx" wAm
 \frac{\mathrm{d}${1:y}}{\mathrm{d}${2:x}}$0
 endsnippet
