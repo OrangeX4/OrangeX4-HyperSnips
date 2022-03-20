@@ -326,11 +326,15 @@ snippet eps "epsilon" wAm
 \epsilon
 endsnippet
 
-snippet `(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp|arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|oint|iiint|iint|int|ell|nabla|notin|not)` "function" wAm
+snippet `(?<!\\)(oint|iiint|iint|int)` "integrate" wAm
+\\``rv = m[1]``
+endsnippet
+
+snippet `(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp|arcsin|arccos|arctan|arccot|arccsc|arcsec|ell|nabla|notin|not)` "function" wAm
 \\``rv = m[1]`` 
 endsnippet
 
-snippet `(?<!\\)(mu|alpha|sigma|rho|beta|gamma|delta|zeta|eta|varepsilon|theta|iota|kappa|vartheta|lambda|nu|pi|rho|tau|upsilon|varphi|phi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)` "greek" wAm
+snippet `(?<!\\)(mu|alpha|sigma|rho|beta|gamma|delta|pi|zeta|eta|varepsilon|theta|iota|kappa|vartheta|lambda|nu|pi|rho|tau|upsilon|varphi|phi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)` "greek" wAm
 \\``rv = m[1]``
 endsnippet
 
@@ -346,7 +350,8 @@ snippet empty "empty" iAm
 \empty
 endsnippet
 
-snippet ini "in" iAm
+priority 200
+snippet inn "in" iAm
 \in 
 endsnippet
 
@@ -367,7 +372,7 @@ snippet tto "to" iAm
 endsnippet
 
 priority 200
-snippet `(?<=\b|\d+)(?<!\\)(cap|cup|land|lor|lnot|oplus|sqcap|sqcup|vdash|models)` "logic operator" wAm
+snippet `(?<=\b|\d+)(?<!\\)(cap|cup|land|lor|lnot|oplus|ominus|otimes|sqcap|sqcup|vdash|models)` "logic operator" wAm
 \\``rv = m[1]`` 
 endsnippet
 
@@ -392,6 +397,7 @@ snippet =< "implied by" iAm
 \impliedby
 endsnippet
 
+priority 200
 snippet iff "if and only if" iAm
 \iff
 endsnippet
@@ -439,6 +445,10 @@ snippet == " constan equals" iAm
 \equiv 
 endsnippet
 
+snippet sim " sim" iAm
+\sim 
+endsnippet
+
 snippet ~~ " Amppro equals" iAm
 \thickapprox 
 endsnippet
@@ -469,6 +479,18 @@ snippet dm "display Math" wA
 $$
 ${1}
 $$$0
+endsnippet
+
+snippet eqt "equation" wA
+\begin{equation}
+  ${1}
+\end{equation}
+endsnippet
+
+snippet eqs "equation*" wA
+\begin{equation*}
+  ${1}
+\end{equation*}
 endsnippet
 
 # ==== Common Environment ====
@@ -523,14 +545,6 @@ endsnippet
 priority 100
 snippet @< "leftangle rightangle" iAm
 \left<${1} \right>$0
-endsnippet
-
-snippet ( "auto close ()" iA
-(${1})
-endsnippet
-
-snippet [ "auto close []" iA
-[${1}]
 endsnippet
 
 priority 200
@@ -615,7 +629,7 @@ snippet `(?<!\\)part` "d/dx" wAm
 \frac{\partial ${1:V}}{\partial ${2:x}}$0
 endsnippet
 
-priority 100
+priority 300
 snippet `(?<!\\)diff` "d/dx" wAm
 \frac{\mathrm{d}${1:y}}{\mathrm{d}${2:x}}$0
 endsnippet
@@ -630,7 +644,7 @@ endsnippet
 
 priority 100
 snippet dint "integral" wAm
-\int_{${1:-\infty}}^{${2:\infty}} ${3} ~\\mathrm{d}${4:x}$0
+\int_{${1:-\infty}}^{${2:\infty}} ${3} \\mathrm{d}${4:x}$0
 endsnippet
 
 priority 200
@@ -650,7 +664,7 @@ final += ((b >= 2) || (b != 1 && !isO && isL)) ? "\\limits" : "";
 let r = (b == 3) ? "E" : (b == 1 && (isL || isO)) ? "C" : "R";
 final += ((b >= 2) || isO || (b == 1 && isL)) ? "_{${1:" + r + "}}" : "_{${1:-\\infty}}^{${2:\\infty}}";
 let x = (b == 2) ? "A" : (b == 3) ? "V" : (b == 1 && isL) ? "s" : "x";
-final += " ${3} ~\\mathrm{d}${4:" + x + "} $0";
+final += " ${3} \\mathrm{d}${4:" + x + "}$0";
 rv = final;
 ``
 endsnippet
