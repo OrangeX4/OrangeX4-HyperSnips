@@ -73,12 +73,8 @@ endglobal
 
 
 snippet // "Fraction" iAm
-\\frac{$1}{$2}$0
-endsnippet 
-
-snippet /V/ "Fraction" iAm
 \\frac{${1:${VISUAL}}}{$2}$0
-endsnippet 
+endsnippet
 
 snippet `((\d+)|(\d*)(\\)?([A-Za-z!]+)((\^|_)(\{\d+\}|\d))*)/` "Fraction no ()" iAm
 \frac{``rv = m[1]``}{$1}$0
@@ -98,6 +94,10 @@ endsnippet
 
 snippet `(\\?[a-zA-Z]\w*)(htd|TD)` "tilde" iAm
 \widetilde{``rv = m[1]``}
+endsnippet
+
+snippet `(\\?[a-zA-Z]\w*)bar` "bar" iAm
+\bar{``rv = m[1]``}
 endsnippet
 
 snippet `(\\?[a-zA-Z]\w*)(hat|HAT)` "hat" iAm
@@ -189,11 +189,11 @@ snippet `([A-Za-z])S(\d)` "auto subscript" wAm
 `` rv = m[1] + "_{" + m[2] + "$1}$2"``
 endsnippet
 
-snippet `\b(?<!\\)([A-Za-z])([a-z])\2` "auto subscript 2" iAm
+snippet `\b(?<!\\)([A-Za-z}])([a-z])\2` "auto subscript 2" iAm
 `` rv = m[1] + "_" + m[2].substring(0, 1) ``
 endsnippet
 
-snippet `\b(?<!\\)([A-Za-z])S([a-z])\2` "auto subscript 2" iAm
+snippet `\b(?<!\\)([A-Za-z}])S([a-z])\2` "auto subscript 2" iAm
 `` rv = m[1] + "_{" + m[2].substring(0, 1) + "$1}$2"``
 endsnippet
 
@@ -227,12 +227,12 @@ snippet mbb "mathbb" iAm
 \mathbb{$1}$0
 endsnippet
 
-snippet mbf "mathbb" iAm
+snippet mbf "mathbf" iAm
 \mathbf{$1}$0
 endsnippet
 
-snippet mbf "mathbm" iAm
-\mathbf{$1}$0
+snippet mbm "mathbm" iAm
+\mathbm{$1}$0
 endsnippet
 
 snippet RR "R" iAm
@@ -416,6 +416,17 @@ endsnippet
 
 snippet thr "therefore" iAm
 \therefore 
+endsnippet
+
+
+# ==== Possibility Symbol ====
+
+snippet Pr "Pr" wAm
+\operatorname{Pr}
+endsnippet
+
+snippet Exp "Expected" wAm
+\mathbb{E}
 endsnippet
 
 
@@ -632,6 +643,11 @@ endsnippet
 priority 300
 snippet `(?<!\\)diff` "d/dx" wAm
 \frac{\mathrm{d}${1:y}}{\mathrm{d}${2:x}}$0
+endsnippet
+
+priority 300
+snippet `dd` "dd" wAm
+\mathrm{d}
 endsnippet
 
 snippet buu "bigcup" wAm
