@@ -425,6 +425,14 @@ snippet Pr "Pr" wAm
 \operatorname{Pr}
 endsnippet
 
+snippet Var "Var" wAm
+\operatorname{Var}
+endsnippet
+
+snippet Cov "Cov" wAm
+\operatorname{Cov}
+endsnippet
+
 snippet Exp "Expected" wAm
 \mathbb{E}
 endsnippet
@@ -621,15 +629,15 @@ endsnippet
 # ======== Common Operator Snippet ========
 
 snippet `(?<!\\)sum` "sum" wAm
-\sum\limits_{n=${1:1}}^{${2:\infty}} ${3:a_n z^n}
+\sum_{${1:n=${2:1}}}^{${3:\infty}} ${4:a_n z^n}
 endsnippet
 
 snippet taylor "taylor" wAm
-\sum\limits_{${1:k}=${2:0}}^{${3:\infty}} ${4:c_$1} (x-a)^$1 $0
+\sum_{${1:k}=${2:0}}^{${3:\infty}} ${4:c_$1} (x-a)^$1 $0
 endsnippet
 
 snippet `(?<!\\)lim` "limit" wAm
-\lim\limits_{${1:n} \to ${2:\infty}}
+\lim_{${1:n} \to ${2:\infty}}
 endsnippet
 
 snippet `(?<!\\)prod` "product" wAm
