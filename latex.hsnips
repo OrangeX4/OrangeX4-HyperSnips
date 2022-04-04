@@ -136,7 +136,7 @@ endsnippet
 
 # == Superscript Operation ==
 
-snippet invs "inverse" wAm
+snippet invs "inverse" iAm
 ^{-1}
 endsnippet
 
@@ -145,7 +145,7 @@ snippet TR "inverse" iAm
 ^{\mathsf{T}}
 endsnippet
 
-snippet CL "complement" wAm
+snippet CL "complement" iAm
 ^{c}
 endsnippet
 
@@ -175,21 +175,21 @@ snippet sb "subscript" iAm
 _{${1:2}}$0
 endsnippet
 
-snippet `(})(\d)\2` "auto subscript" wAm
+snippet `(})(\d)\2` "auto subscript" iAm
 `` rv = m[1] + "_" + m[2]``
 endsnippet
 
-snippet `([A-Za-z])(\d)` "auto subscript" wAm
+snippet `([A-Za-z])(\d)` "auto subscript" iAm
 `` rv = m[1] + "_" + m[2]``
 endsnippet
 
 priority 100
-snippet `([A-Za-z])_(\d{2})` "auto subscript" wAm
+snippet `([A-Za-z])_(\d{2})` "auto subscript" iAm
 `` rv = m[1] + "_{" + m[2] + "}$0" ``
 endsnippet
 
 priority 100
-snippet `([A-Za-z])S(\d)` "auto subscript" wAm
+snippet `([A-Za-z])S(\d)` "auto subscript" iAm
 `` rv = m[1] + "_{" + m[2] + "$1}$2"``
 endsnippet
 
@@ -300,7 +300,7 @@ endsnippet
 
 # == Auto Symbol ==
 
-snippet oo "\infty" wAmm
+snippet oo "\infty" iAmm
 \infty
 endsnippet
 
@@ -336,12 +336,12 @@ snippet xx "cross" iAm
 \times 
 endsnippet
 
-snippet eps "epsilon" wAm
+snippet eps "epsilon" iAm
 \epsilon
 endsnippet
 
 priority 100
-snippet ell "ell" wAm
+snippet ell "ell" iAm
 \ell
 endsnippet
 
@@ -349,20 +349,24 @@ snippet star "star" iAm
 ^{*}
 endsnippet
 
-snippet `(?<!\\)(oint|iiint|iint|int)` "integrate" wAm
+snippet `(?<!\\)(oint|iiint|iint|int)` "integrate" iAm
 \\``rv = m[1]``
 endsnippet
 
-snippet `(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|perp|arcsin|arccos|arctan|arccot|arccsc|arcsec|ell|nabla|notin|not)` "function" wAm
+snippet `(?<!\\)(max|min|sup|inf)` "max|min|sup|inf" iAm
+\\``rv = m[1]``_{$1}
+endsnippet
+
+snippet `(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|perp|arcsin|arccos|arctan|arccot|arccsc|arcsec|ell|nabla|notin|not)` "function" iAm
 \\``rv = m[1]`` 
 endsnippet
 
-snippet `(?<!\\)(mu|alpha|sigma|rho|beta|gamma|delta|pi|zeta|eta|varepsilon|theta|iota|kappa|vartheta|lambda|nu|pi|rho|tau|upsilon|varphi|phi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)` "greek" wAm
+snippet `(?<!\\)(mu|alpha|sigma|rho|beta|gamma|delta|pi|zeta|eta|varepsilon|theta|iota|kappa|vartheta|lambda|nu|pi|rho|tau|upsilon|varphi|phi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)` "greek" iAm
 \\``rv = m[1]``
 endsnippet
 
 # ==== Space Symbol ====
-snippet `(?<!\\)(quad)` "ln" wAm
+snippet `(?<!\\)(quad)` "ln" iAm
 \\``rv = m[1]``
 endsnippet
 
@@ -395,12 +399,12 @@ snippet tto "to" iAm
 endsnippet
 
 priority 200
-snippet `(?<=\b|\d+)(?<!\\)(cap|cup|land|lor|lnot|oplus|ominus|otimes|sqcap|sqcup|vdash|models)` "logic operator" wAm
+snippet `(?<=\b|\d+)(?<!\\)(cap|cup|land|lor|lnot|oplus|ominus|otimes|sqcap|sqcup|vdash|models)` "logic operator" iAm
 \\``rv = m[1]`` 
 endsnippet
 
 priority 200
-snippet `(?<=\b|\d+)(?<!\\)(bot|top)` "logic symbols" wAm
+snippet `(?<=\b|\d+)(?<!\\)(bot|top)` "logic symbols" iAm
 \\``rv = m[1]``
 endsnippet
 
@@ -444,19 +448,19 @@ endsnippet
 
 # ==== Possibility Symbol ====
 
-snippet Pr "Pr" wAm
+snippet Pr "Pr" iAm
 \operatorname{Pr}
 endsnippet
 
-snippet Var "Var" wAm
+snippet Var "Var" iAm
 \operatorname{Var}
 endsnippet
 
-snippet Cov "Cov" wAm
+snippet Cov "Cov" iAm
 \operatorname{Cov}
 endsnippet
 
-snippet Exp "Expected" wAm
+snippet Exp "Expected" iAm
 \mathbb{E}
 endsnippet
 
@@ -537,13 +541,13 @@ endsnippet
 
 # ==== Common Environment ====
 
-snippet case "cases" wAm
+snippet case "cases" iAm
 \begin{cases}
 	$1 \\\\
 \end{cases}
 endsnippet
 
-snippet ali "aligned" wAm
+snippet ali "aligned" iAm
 \begin{aligned}
 $1 \\\\
 \end{aligned}
@@ -645,57 +649,57 @@ snippet plus "plus" iAm
 ${1:k}_1${2:\\alpha}_1+${1:k}_2${2:\\alpha}_2+\\cdots+${1:k}_${3:n}${2:\\alpha}_${3:n}
 endsnippet
 
-snippet `\b([a-z])=n` "i=1,2,\cdots,n" wAm
+snippet `\b([a-z])=n` "i=1,2,\cdots,n" iAm
 ``rv = m[1]``=1,2,\cdots,n
 endsnippet
 
 # ======== Common Operator Snippet ========
 
-snippet `(?<!\\)sum` "sum" wAm
+snippet `(?<!\\)sum` "sum" iAm
 \sum_{${1:n=${2:1}}}^{${3:\infty}} ${4:a_n z^n}
 endsnippet
 
-snippet taylor "taylor" wAm
+snippet taylor "taylor" iAm
 \sum_{${1:k}=${2:0}}^{${3:\infty}} ${4:c_$1} (x-a)^$1 $0
 endsnippet
 
-snippet `(?<!\\)lim` "limit" wAm
+snippet `(?<!\\)lim` "limit" iAm
 \lim_{${1:n} \to ${2:\infty}}
 endsnippet
 
-snippet `(?<!\\)prod` "product" wAm
+snippet `(?<!\\)prod` "product" iAm
 \prod_{${1:n=${2:1}}}^{${3:\infty}} ${4:${VISUAL}}$0
 endsnippet
 
-snippet `(?<!\\)part` "d/dx" wAm
+snippet `(?<!\\)part` "d/dx" iAm
 \frac{\partial ${1:V}}{\partial ${2:x}}$0
 endsnippet
 
 priority 300
-snippet `(?<!\\)diff` "d/dx" wAm
+snippet `(?<!\\)diff` "d/dx" iAm
 \frac{\mathrm{d}${1:y}}{\mathrm{d}${2:x}}$0
 endsnippet
 
 priority 300
-snippet `dd` "dd" wAm
+snippet `dd` "dd" iAm
 \mathrm{d}
 endsnippet
 
-snippet buu "bigcup" wAm
+snippet buu "bigcup" iAm
 \bigcup_{${1:i \in ${2: I}}} $0
 endsnippet
 
-snippet bnn "bigcap" wAm
+snippet bnn "bigcap" iAm
 \bigcap_{${1:i \in ${2: I}}} $0
 endsnippet
 
 priority 100
-snippet dint "integral" wAm
+snippet dint "integral" iAm
 \int_{${1:-\infty}}^{${2:\infty}} ${3} \\mathrm{d}${4:x}$0
 endsnippet
 
 priority 200
-snippet `c(o|n)?(l|n)?(b|c)?int` "s 	egral" wAm
+snippet `c(o|n)?(l|n)?(b|c)?int` "s 	egral" iAm
 ``
 let final = "\\"; // init
 let isO = m[1] == "o";
@@ -718,11 +722,12 @@ endsnippet
 
 # Custom: Can add more defined operator
 priority 100
-snippet `(?<![\a-zA-Z])(rank|lcm|gcd|atan2|softmax|trace|diag|sign|const)` "math function" wAm
+snippet `(?<![\a-zA-Z])(rank|lcm|gcd|atan2|softmax|trace|diag|sign|const)` "math function" iAm
 \\operatorname{``rv = m[1]``}
 endsnippet
 
-snippet `(?<![\a-zA-Z])arg(max|min)` "argmin/max" wAm
+priority 200
+snippet `(?<![\a-zA-Z])arg(max|min)` "argmin/max" iAm
 \mathop{\arg\\``rv = m[1]``}
 endsnippet
 
@@ -747,7 +752,7 @@ snippet bigmin "Optimization problem" iAm
 \end{equation$4}$0
 endsnippet
 
-snippet bigmax "Optimization problem" wAm
+snippet bigmax "Optimization problem" iAm
 \begin{equation$4}
 	\begin{aligned}
 		\max &\quad ${1:f(x)}\\\\
@@ -757,7 +762,7 @@ snippet bigmax "Optimization problem" wAm
 \end{equation$4}$0
 endsnippet
 
-snippet deff "Definition of function" wAm
+snippet deff "Definition of function" iAm
 $1\colon ${2:\\mathbb{R\}} \to ${3:\\mathbb{R\}}, ${4:x} \mapsto $0
 endsnippet
 
@@ -766,7 +771,7 @@ snippet iid "independent and identical distribution" iAm
 \overset{\text{i.i.d.}}{\sim}
 endsnippet
 
-snippet defe "define equal" wAm
+snippet defe "define equal" iAm
 \overset{\underset{\mathrm{def}}{}}{=}
 endsnippet
 
@@ -827,7 +832,7 @@ endsnippet
 # ==== Dynamic Matrix ====
 
 priority 300
-snippet `(b|p|v)mata([1-9])` "bmatrix" iwAm
+snippet `(b|p|v)mata([1-9])` "bmatrix" iiAm
 \\begin{``rv = m[1]``matrix}``
 	let len = m[2];
 	let results = "";
@@ -839,7 +844,7 @@ snippet `(b|p|v)mata([1-9])` "bmatrix" iwAm
 endsnippet
 
 priority 300
-snippet `(b|p|v)mat([1-9])` "bmatrix" iwAm
+snippet `(b|p|v)mat([1-9])` "bmatrix" iiAm
 \\begin{``rv = m[1]``matrix}``
 	rv = gen_matrix(m[2],m[2]);
 ``\\end{``rv = m[1]``matrix}$0
@@ -853,14 +858,14 @@ snippet `(b|p|v)matr([1-9]{1})` "bmatrix" iiAm
 endsnippet
 
 priority 300
-snippet `vec([1-9])` "col vector" iwAm
+snippet `vec([1-9])` "col vector" iiAm
 \\begin{pmatrix}``
     rv = gen_matrix(m[1], 1);
 ``\\end{pmatrix}$0
 endsnippet
 
 priority 300
-snippet `vecr([1-9])` "row vector" iwAm
+snippet `vecr([1-9])` "row vector" iiAm
 \\begin{pmatrix}``
     rv = gen_matrix(1, m[1]);
 ``\\end{pmatrix}$0
