@@ -175,6 +175,10 @@ snippet sb "subscript" iAm
 _{${1:2}}$0
 endsnippet
 
+snippet `(})(\d)\2` "auto subscript" wAm
+`` rv = m[1] + "_" + m[2]``
+endsnippet
+
 snippet `([A-Za-z])(\d)` "auto subscript" wAm
 `` rv = m[1] + "_" + m[2]``
 endsnippet
@@ -269,7 +273,17 @@ snippet `(\\?[a-zA-Z]\w*)(bs)` "boldsymbol" iAm
 endsnippet
 
 priority 100
-snippet `(\\?[a-zA-Z]\w*)mcal` "mathcal" iAm
+snippet `(\\?[a-zA-Z]\w*)(sf)` "mathsf" iAm
+\mathsf{``rv = m[1]``}
+endsnippet
+
+priority 100
+snippet `(\\?[a-zA-Z]\w*)(frak)` "mathfrak" iAm
+\mathfrak{``rv = m[1]``}
+endsnippet
+
+priority 100
+snippet `(\\?[a-zA-Z]\w*)cal` "mathcal" iAm
 \mathcal{``rv = m[1].toUpperCase()``}$0
 endsnippet
 
@@ -279,7 +293,7 @@ snippet `(?<!\\)\b([a-zA-Z]+)rm` "mathrm" iAm
 endsnippet
 
 priority 100
-snippet `(\\?[a-zA-Z]\w*)mbb` iAm
+snippet `(\\?[a-zA-Z]\w*)bb` iAm
 \mathbb{``rv = m[1]``}$0
 endsnippet
 
@@ -326,11 +340,20 @@ snippet eps "epsilon" wAm
 \epsilon
 endsnippet
 
+priority 100
+snippet ell "ell" wAm
+\ell
+endsnippet
+
+snippet star "star" iAm
+^{*}
+endsnippet
+
 snippet `(?<!\\)(oint|iiint|iint|int)` "integrate" wAm
 \\``rv = m[1]``
 endsnippet
 
-snippet `(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp|arcsin|arccos|arctan|arccot|arccsc|arcsec|ell|nabla|notin|not)` "function" wAm
+snippet `(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|perp|arcsin|arccos|arctan|arccot|arccsc|arcsec|ell|nabla|notin|not)` "function" wAm
 \\``rv = m[1]`` 
 endsnippet
 
@@ -695,17 +718,12 @@ endsnippet
 
 # Custom: Can add more defined operator
 priority 100
-snippet `(?<![\a-zA-Z])(rank|lcm|gcd)` "math function" wAm
+snippet `(?<![\a-zA-Z])(rank|lcm|gcd|atan2|softmax|trace|diag|sign|const)` "math function" wAm
 \\operatorname{``rv = m[1]``}
 endsnippet
 
 snippet `(?<![\a-zA-Z])arg(max|min)` "argmin/max" wAm
 \mathop{\arg\\``rv = m[1]``}
-endsnippet
-
-priority 100
-snippet `(?<![\a-zA-Z])(atan2)` "atan2" wAm
-\\operatorname{``rv = m[1]``}
 endsnippet
 
 # ====== Big Snippet ======
