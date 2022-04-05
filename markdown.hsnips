@@ -88,35 +88,35 @@ endsnippet
 # == Hat Operation ==
 
 # ==== Auto Capture Hat Operation ====
-snippet `(\(?)(\\?[a-zA-Z]\w*)(\)?)(hbar|BAR)` "Bar" iAm
+snippet `(\\?[a-zA-Z]\w*{?\w*}?)(hbar|BAR)` "Bar" iAm
 \overline{``rv = m[1] + m[2] + m[3]``}
 endsnippet
 
-snippet `(\\?[a-zA-Z]\w*)(htd|TD)` "tilde" iAm
+snippet `(\\?[a-zA-Z]\w*{?\w*}?)(htd|TD)` "tilde" iAm
 \widetilde{``rv = m[1]``}
 endsnippet
 
-snippet `(\\?[a-zA-Z]\w*)bar` "bar" iAm
+snippet `(\\?[a-zA-Z]\w*{?\w*}?)bar` "bar" iAm
 \bar{``rv = m[1]``}
 endsnippet
 
-snippet `(\\?[a-zA-Z]\w*)(hat|HAT)` "hat" iAm
+snippet `(\\?[a-zA-Z]\w*{?\w*}?)(hat|HAT)` "hat" iAm
 \hat{``rv = m[1]``}
 endsnippet
 
-snippet `(\\?[a-zA-Z]\w*)(hvec)` "Vector postfix" iAm
+snippet `(\\?[a-zA-Z]\w*{?\w*}?)(hvec)` "Vector postfix" iAm
 \vec{``rv = m[1]``}
 endsnippet
 
-snippet `(\\?[a-zA-Z]\w*)(rta)` "Vector postfix" iAm
+snippet `(\\?[a-zA-Z]\w*{?\w*}?)(rta)` "Vector postfix" iAm
 \overrightarrow{``rv = m[1]``}
 endsnippet
 
-snippet `(\\?[a-zA-Z]\w*)(hdot)` "dot" iAm
+snippet `(\\?[a-zA-Z]\w*{?\w*}?)(hdot)` "dot" iAm
 \dot{``rv = m[1]``}
 endsnippet
 
-snippet `(\\?[a-zA-Z]\w*)(hddot)` "ddot" iAm
+snippet `(\\?[a-zA-Z]\w*{?\w*}?)(hddot)` "ddot" iAm
 \ddot{``rv = m[1]``}
 endsnippet
 
@@ -258,32 +258,32 @@ endsnippet
 # ==== Dynamic Operation ====
 
 priority 100
-snippet `(\\?[a-zA-Z]\w*)(bf|BF)` "mathbf" iAm
+snippet `(\\?[a-zA-Z]\w*{?\w*}?)(bf|BF)` "mathbf" iAm
 \mathbf{``rv = m[1]``}
 endsnippet
 
 priority 100
-snippet `(\\?[a-zA-Z]\w*)(bm|BM)` "mathbm" iAm
+snippet `(\\?[a-zA-Z]\w*{?\w*}?)(bm|BM)` "mathbm" iAm
 \bm{``rv = m[1]``}
 endsnippet
 
 priority 100
-snippet `(\\?[a-zA-Z]\w*)(bs)` "boldsymbol" iAm
+snippet `(\\?[a-zA-Z]\w*{?\w*}?)(bs)` "boldsymbol" iAm
 \boldsymbol{``rv = m[1]``}
 endsnippet
 
 priority 100
-snippet `(\\?[a-zA-Z]\w*)(sf)` "mathsf" iAm
+snippet `(\\?[a-zA-Z]\w*{?\w*}?)(sf)` "mathsf" iAm
 \mathsf{``rv = m[1]``}
 endsnippet
 
 priority 100
-snippet `(\\?[a-zA-Z]\w*)(frak)` "mathfrak" iAm
+snippet `(\\?[a-zA-Z]\w*{?\w*}?)(frak)` "mathfrak" iAm
 \mathfrak{``rv = m[1]``}
 endsnippet
 
 priority 100
-snippet `(\\?[a-zA-Z]\w*)cal` "mathcal" iAm
+snippet `(\\?[a-zA-Z]\w*{?\w*}?)cal` "mathcal" iAm
 \mathcal{``rv = m[1].toUpperCase()``}$0
 endsnippet
 
@@ -293,7 +293,7 @@ snippet `(?<!\\)\b([a-zA-Z]+)rm` "mathrm" iAm
 endsnippet
 
 priority 100
-snippet `(\\?[a-zA-Z]\w*)bb` iAm
+snippet `(\\?[a-zA-Z]\w*{?\w*}?)bb` iAm
 \mathbb{``rv = m[1]``}$0
 endsnippet
 
@@ -353,7 +353,7 @@ snippet `(?<!\\)(oint|iiint|iint|int)` "integrate" iAm
 \\``rv = m[1]``
 endsnippet
 
-snippet `(?<!\\)(max|min|sup|inf)` "max|min|sup|inf" iAm
+snippet `(?<!\\)(sum|min|max|argmin|argmax|sup|inf)` "sum|min|max|argmin|argmax|sup|inf" iAm
 \\``rv = m[1]``_{$1}
 endsnippet
 
@@ -655,10 +655,6 @@ endsnippet
 
 # ======== Common Operator Snippet ========
 
-snippet `(?<!\\)sum` "sum" iAm
-\sum_{${1:n=${2:1}}}^{${3:\infty}} ${4:a_n z^n}
-endsnippet
-
 snippet taylor "taylor" iAm
 \sum_{${1:k}=${2:0}}^{${3:\infty}} ${4:c_$1} (x-a)^$1 $0
 endsnippet
@@ -724,11 +720,6 @@ endsnippet
 priority 100
 snippet `(?<![\a-zA-Z])(rank|lcm|gcd|atan2|softmax|trace|diag|sign|const)` "math function" iAm
 \\operatorname{``rv = m[1]``}
-endsnippet
-
-priority 200
-snippet `(?<![\a-zA-Z])arg(max|min)` "argmin/max" iAm
-\mathop{\arg\\``rv = m[1]``}
 endsnippet
 
 # ====== Big Snippet ======
