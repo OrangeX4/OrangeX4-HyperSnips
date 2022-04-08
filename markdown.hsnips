@@ -243,6 +243,14 @@ snippet RR "R" iAm
 \mathbb{R}
 endsnippet
 
+snippet NN "N" iAm
+\mathbb{N}
+endsnippet
+
+snippet ZZ "Z" iAm
+\mathbb{Z}
+endsnippet
+
 snippet ZZ "Z" iAm
 \mathbb{Z}
 endsnippet
@@ -265,6 +273,10 @@ endsnippet
 priority 100
 snippet `(\\?[a-zA-Z]\w*({?\w*})?)(bm|BM)` "mathbm" iAm
 \bm{``rv = m[1]``}
+endsnippet
+
+snippet 1bm "1bm" iAm
+\bm{1}
 endsnippet
 
 priority 100
@@ -332,6 +344,7 @@ snippet ** "dot multiply" iAm
 \cdot 
 endsnippet
 
+priority 101
 snippet xx "cross" iAm
 \times 
 endsnippet
@@ -357,7 +370,7 @@ snippet `(?<!\\)(sum|min|max|argmin|argmax|sup|inf)` "sum|min|max|argmin|argmax|
 \\``rv = m[1]``_{$1}
 endsnippet
 
-snippet `(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|perp|arcsin|arccos|arctan|arccot|arccsc|arcsec|ell|nabla|notin|not)` "function" iAm
+snippet `(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|det|perp|arcsin|arccos|arctan|arccot|arccsc|arcsec|ell|nabla|notin|not)` "function" iAm
 \\``rv = m[1]`` 
 endsnippet
 
@@ -404,7 +417,7 @@ snippet `(?<=\b|\d+)(?<!\\)(cap|cup|land|lor|lnot|oplus|ominus|otimes|sqcap|sqcu
 endsnippet
 
 priority 200
-snippet `(?<=\b|\d+)(?<!\\)(bot|top)` "logic symbols" iAm
+snippet `(?<=\b|\d+)(?<!\\)(bot|top|dagger)` "logic symbols" iAm
 \\``rv = m[1]``
 endsnippet
 
@@ -649,7 +662,7 @@ snippet plus "plus" iAm
 ${1:k}_1${2:\\alpha}_1+${1:k}_2${2:\\alpha}_2+\\cdots+${1:k}_${3:n}${2:\\alpha}_${3:n}
 endsnippet
 
-snippet `\b([a-z])=n` "i=1,2,\cdots,n" iAm
+snippet `\b([ijk])=n` "i=1,2,\cdots,n" iAm
 ``rv = m[1]``=1,2,\cdots,n
 endsnippet
 
@@ -718,7 +731,7 @@ endsnippet
 
 # Custom: Can add more defined operator
 priority 100
-snippet `(?<![\a-zA-Z])(rank|lcm|gcd|atan2|softmax|trace|diag|sign|const)` "math function" iAm
+snippet `(?<![\a-zA-Z])(rank|lcm|gcd|atan2|softmax|tr|trace|diag|sign|const)` "math function" iAm
 \\operatorname{``rv = m[1]``}
 endsnippet
 
