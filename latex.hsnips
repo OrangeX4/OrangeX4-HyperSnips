@@ -93,7 +93,7 @@ snippet `(\\?[a-zA-Z]\w*({?\w*})?)(hbar|BAR)` "Bar" iAm
 endsnippet
 
 snippet `(\\?[a-zA-Z]\w*({?\w*})?)(htd|TD)` "tilde" iAm
-\widetilde{``rv = m[1]``}
+\tilde{``rv = m[1]``}
 endsnippet
 
 snippet `(\\?[a-zA-Z]\w*({?\w*})?)bar` "bar" iAm
@@ -239,6 +239,10 @@ snippet mbm "mathbm" iAm
 \mathbm{$1}$0
 endsnippet
 
+snippet TT "R" iAm
+^{\mathrm{T}}
+endsnippet
+
 snippet RR "R" iAm
 \mathbb{R}
 endsnippet
@@ -305,6 +309,11 @@ snippet `(?<!\\)\b([a-zA-Z]+)rm` "mathrm" iAm
 endsnippet
 
 priority 100
+snippet `(?<!\\)\b([a-zA-Z]+)opn` "operatorname" iAm
+\operatorname{``rv = m[1]``}
+endsnippet
+
+priority 100
 snippet `(\\?[a-zA-Z]\w*({?\w*})?)bb` iAm
 \mathbb{``rv = m[1]``}$0
 endsnippet
@@ -344,6 +353,10 @@ snippet ** "dot multiply" iAm
 \cdot 
 endsnippet
 
+snippet odot "odot" iAm
+\odot 
+endsnippet
+
 priority 101
 snippet xx "cross" iAm
 \times 
@@ -358,6 +371,11 @@ snippet ell "ell" iAm
 \ell
 endsnippet
 
+priority 100
+snippet log "log" iAm
+\log
+endsnippet
+
 snippet star "star" iAm
 ^{*}
 endsnippet
@@ -370,7 +388,7 @@ snippet `(?<!\\)(sum|min|max|argmin|argmax|sup|inf)` "sum|min|max|argmin|argmax|
 \\``rv = m[1]``_{$1}
 endsnippet
 
-snippet `(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|det|perp|arcsin|arccos|arctan|arccot|arccsc|arcsec|ell|nabla|notin|not)` "function" iAm
+snippet `(?<!\\)(sin|cos|arccot|cot|csc|ln|exp|det|perp|arcsin|arccos|arctan|arccot|arccsc|arcsec|ell|nabla|notin|not)` "function" iAm
 \\``rv = m[1]`` 
 endsnippet
 
