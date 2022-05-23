@@ -337,7 +337,7 @@ endsnippet
 # -  ... -> , \cdots
 # add a space if there already is one.
 priority 101
-snippet `(?<=[-+])\s*\.\.\.` "smart cdots" irA
+snippet `(?<=[-+])\s*\.\.\.` "smart cdots" imA
  \cdots 
 endsnippet
 
@@ -345,7 +345,7 @@ endsnippet
 # ,... -> , \ldots
 # ,  ... -> , \ldots
 priority 101
-snippet `(?<=,)(\s*)\.\.\.` "smart ldots" irA
+snippet `(?<=,)(\s*)\.\.\.` "smart ldots" imA
  \ldots 
 endsnippet
 
