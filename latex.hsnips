@@ -49,21 +49,43 @@ function tes_matrix(nrow, ncol,t) {
 }
 
 // 输出一个表格
-function createTable(rows, cols) {
-    let ret = "";
-    let order = 1;
-    for (let i = 0; i < parseInt(rows) + 2; i++) {
-        for (let j = 0; j < parseInt(cols); j++) {
-            if (i === 1) {
-                ret += "|---";
-            } else {
-                ret += "| $" + (order).toString() + " ";
-                order++;
-            }
-        }
-        ret += "|\n"
-    }
-    return ret;
+function createTable(nrows, ncols) {
+	nrows = parseInt(nrows);
+	ncols = parseInt(ncols);
+
+	if (nrows === 0 | ncols === 0) {
+		return "";
+	}
+
+	ret = "\\begin{tabular}";
+	
+	if (ncols > 1) {
+		ret += "{|c|\*{" + (ncols-1).toString() + "}{c|}}";
+	} else {
+		ret += "{|c|}";
+	}
+
+	ret += "\n";
+	
+	let order = 1;
+	
+	for (let i=0; i < nrows; i++) {
+		ret += "\\hline\n";
+		for (let j=0; j<ncols; j++){
+			if (j!=ncols-1) {
+				ret += "$" + ( order ).toString() + " " + "&";
+			} else {
+				ret += "$" + ( order ).toString() + " " + "\\\\" + "\\";
+				ret += "\n";
+			}
+			order++;
+		}
+	}
+	ret += "\\hline\n";
+	
+	ret += "\\end{tabular}\n";
+	
+	return ret;
 }
 
 endglobal
