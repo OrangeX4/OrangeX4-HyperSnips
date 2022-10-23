@@ -239,7 +239,11 @@ snippet mbm "mathbm" iAm
 \mathbm{$1}$0
 endsnippet
 
-snippet TT "R" iAm
+snippet KK "K" iAm
+^{\mathrm{K}}
+endsnippet
+
+snippet TT "T" iAm
 ^{\mathrm{T}}
 endsnippet
 
@@ -249,10 +253,6 @@ endsnippet
 
 snippet NN "N" iAm
 \mathbb{N}
-endsnippet
-
-snippet ZZ "Z" iAm
-\mathbb{Z}
 endsnippet
 
 snippet ZZ "Z" iAm
