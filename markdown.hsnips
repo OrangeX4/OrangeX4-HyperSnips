@@ -1,3 +1,9 @@
+# Rearranged by Sayon(github@SSSayon) from OrangeX4/OrangeX4-HyperSnips.
+# Added explanation in Chinese of the meaning & usage of each snippet,
+# corrected some mistakes that may cause undesired mix,
+# and removed (perhaps) unnecessary or infrequently-used snippets.
+# ! Changed several names for personal taste and this doc definitely violates with the original one. !
+
 global
 // JavaScript code
 function gen_matrix(nrow, ncol) {
@@ -65,12 +71,35 @@ function createTable(rows, cols) {
     }
     return ret;
 }
-
 endglobal
 
 
-# == Fraction Match ==
+## 数学模式
 
+snippet lm "inline Math" wA
+$${1}$$0
+endsnippet
+
+snippet dm "display Math" wA
+$$
+${1}
+$$$0
+endsnippet
+
+snippet eqt "equation" wA
+\begin{equation}
+  ${1}
+\end{equation}
+endsnippet
+
+snippet eqs "equation*" wA
+\begin{equation*}
+  ${1}
+\end{equation*}
+endsnippet
+
+
+## 分数
 
 snippet // "Fraction" iAm
 \\frac{${1:${VISUAL}}}{$2}$0
@@ -85,45 +114,51 @@ snippet `(?<=\s)(\\mu|\\alpha|\\sigma|\\rho|\\beta|\\gamma|\\delta|\\zeta|\\eta|
 ``rv = "\\frac{" + m.slice(1, m.length).join('') + "}{$1}$2"``
 endsnippet
 
-# == Hat Operation ==
 
-# ==== Auto Capture Hat Operation ====
-snippet `(\\?[a-zA-Z]\w*({?\w*})?)(hbar|BAR)` "Bar" iAm
-\overline{``rv = m[1] + m[2] + m[3]``}
-endsnippet
+## 帽子
 
-snippet `(\\?[a-zA-Z]\w*({?\w*})?)(htd|TD)` "tilde" iAm
+#### 单个
+
+snippet `(\\?[a-zA-Z]\w*({?\w*})?)(tld)` "波浪线" iAm 
 \tilde{``rv = m[1]``}
 endsnippet
 
-snippet `(\\?[a-zA-Z]\w*({?\w*})?)bar` "bar" iAm
+snippet `(\\?[a-zA-Z]\w*({?\w*})?)(bar)` "横线" iAm
 \bar{``rv = m[1]``}
 endsnippet
 
-snippet `(\\?[a-zA-Z]\w*({?\w*})?)(hat|HAT)` "hat" iAm
+snippet `(\\?[a-zA-Z]\w*({?\w*})?)(hat)` "尖顶" iAm
 \hat{``rv = m[1]``}
 endsnippet
 
-snippet `(\\?[a-zA-Z]\w*({?\w*})?)(hvec)` "Vector postfix" iAm
+snippet `(\\?[a-zA-Z]\w*({?\w*})?)(vec)` "向量" iAm
 \vec{``rv = m[1]``}
 endsnippet
 
-snippet `(\\?[a-zA-Z]\w*({?\w*})?)(rta)` "Vector postfix" iAm
-\overrightarrow{``rv = m[1]``}
+snippet `(\\?[a-zA-Z]\w*({?\w*})?)(VEC)` "左箭头" iAm
+\overleftarrow{``rv = m[1]``}
 endsnippet
 
-snippet `(\\?[a-zA-Z]\w*({?\w*})?)(dot)` "dot" iAm
+snippet `(\\?[a-zA-Z]\w*({?\w*})?)(dot)` "点" iAm
 \dot{``rv = m[1]``}
+endsnippet
+priority 200
+snippet `\\?(c|d|v|l)(dot)` "点" iAm
+\``rv = m[1]``dot
 endsnippet
 
 priority 1000
-snippet `(\\?[a-zA-Z]\w*({?\w*})?)(hdd)` "ddot" iAm
+snippet `(\\?[a-zA-Z]\w*({?\w*})?)(ddot)` "两点" iAm
 \ddot{``rv = m[1]``}
 endsnippet
 
-# ===== Static Hat Operation ====
+#### 多个
 
-snippet hbar "bar" iAm
+snippet tld "tilde" iAm
+\tilde{$1}$0
+endsnippet
+
+snippet bar "bar" iAm
 \overline{$1}$0
 endsnippet
 
@@ -131,124 +166,58 @@ snippet hat "hat" iAm
 \hat{$1}$0
 endsnippet
 
-snippet hsq "\sqrt{}" iAm
+snippet vec "vec" iAm
+\overrightarrow{$1}$0
+endsnippet
+
+snippet VEC "reversed vec" iAm
+\overleftarrow{$1}$0
+endsnippet
+
+snippet sqrt "根号" iAm
 \sqrt{${1}}$0
 endsnippet
 
-# == Superscript Operation ==
 
-snippet invs "inverse" iAm
-^{-1}
-endsnippet
+## 数学字体
 
-priority 10000
-snippet TR "inverse" iAm
-^{\mathsf{T}}
-endsnippet
-
-snippet CL "complement" iAm
-^{c}
-endsnippet
-
-snippet R+ "R0+" iAm
-R_0^+
-endsnippet
-
-snippet pow "power" iAm
-^{${1:2}}$0
-endsnippet
-
-snippet tp "to the ... power" iAm
-^{${1:2}}$0
-endsnippet
-
-snippet sr "square" iAm
-^{2}$0
-endsnippet
-
-# == Subscript Operation ==
-
-snippet td "subscript" iAm
-_{${1}}$0
-endsnippet
-
-snippet sb "subscript" iAm
-_{${1:2}}$0
-endsnippet
-
-snippet `(})(\d)\2` "auto subscript" iAm
-`` rv = m[1] + "_" + m[2]``
-endsnippet
-
-snippet `([A-Za-z])(\d)` "auto subscript" iAm
-`` rv = m[1] + "_" + m[2]``
-endsnippet
-
-priority 100
-snippet `([A-Za-z])_(\d{2})` "auto subscript" iAm
-`` rv = m[1] + "_{" + m[2] + "}$0" ``
-endsnippet
-
-priority 100
-snippet `([A-Za-z])S(\d)` "auto subscript" iAm
-`` rv = m[1] + "_{" + m[2] + "$1}$2"``
-endsnippet
-
-snippet `\b(?<!\\)([A-Za-z}])([a-z])\2` "auto subscript 2" iAm
-`` rv = m[1] + "_" + m[2].substring(0, 1) ``
-endsnippet
-
-snippet `\b(?<!\\)([A-Za-z}])S([a-z])\2` "auto subscript 2" iAm
-`` rv = m[1] + "_{" + m[2].substring(0, 1) + "$1}$2"``
-endsnippet
-
-# Custom: Add more greek letters
-snippet `(\\mu|\\alpha|\\sigma|\\rho|\\beta|\\gamma|\\delta|\\zeta|\\eta|\\varepsilon|\\epsilon|\\theta|\\iota|\\kappa|\\vartheta|\\lambda|\\nu|\\pi|\\rho|\\tau|\\upsilon|\\phi|\\chi|\\psi|\\omega|\\Gamma|\\Delta|\\Theta|\\Lambda|\\Xi|\\Pi|\\Sigma|\\Upsilon|\\Phi|\\Psi|\\Omega)([a-z])\2` "auto subscript for greek letter" iAm
-`` rv = m[1] + "_" + m[2].substring(0, 1) ``
-endsnippet
-
-snippet `(\\mu|\\alpha|\\sigma|\\rho|\\beta|\\gamma|\\delta|\\zeta|\\eta|\\varepsilon|\\epsilon|\\theta|\\iota|\\kappa|\\vartheta|\\lambda|\\nu|\\pi|\\rho|\\tau|\\upsilon|\\phi|\\chi|\\psi|\\omega|\\Gamma|\\Delta|\\Theta|\\Lambda|\\Xi|\\Pi|\\Sigma|\\Upsilon|\\Phi|\\Psi|\\Omega)S([a-z])\2` "auto subscript for greek letter" iAm
-`` rv = m[1] + "_{${1:" + m[2].substring(0, 1) + "}}$2"``
-endsnippet
-
-
-# == Font Operation ==
-
-# ==== Static Operation ====
-
-snippet txt "text" iAm
+snippet txt "纯文本" iAm
 \text{$1}$0
 endsnippet
 
-snippet tit "text it" iAm
+snippet tit "纯文本斜体" iAm
 \textit{$1}$0
 endsnippet
 
-snippet mcal "mathcal" im
+snippet mcal "手写体1" iAm
 \mathcal{$1}$0
 endsnippet
 
-snippet mbb "mathbb" iAm
+snippet mscr "手写体2" iAm
+\mathscr{$1}$0
+endsnippet
+
+snippet mbb "空心体" iAm
 \mathbb{$1}$0
 endsnippet
 
-snippet mbf "mathbf" iAm
+snippet mbf "粗体" iAm
 \mathbf{$1}$0
 endsnippet
 
-snippet mbm "mathbm" iAm
-\mathbm{$1}$0
+snippet 0bm "0bm" iAm
+\bm{0}
 endsnippet
 
-snippet KK "^K" iAm
-^{\mathrm{K}}
+snippet 1bm "1bm" iAm
+\bm{1}
 endsnippet
 
-snippet TT "^T" iAm
+snippet TT "转置" iAm
 ^{\mathrm{T}}
 endsnippet
 
-snippet HH "^H" iAm
+snippet HH "共轭转置" iAm
 ^{\mathrm{H}}
 endsnippet
 
@@ -264,10 +233,6 @@ snippet ZZ "Z" iAm
 \mathbb{Z}
 endsnippet
 
-snippet ZZ "Z" iAm
-\mathbb{Z}
-endsnippet
-
 snippet QQ "Q" iAm
 \mathbb{Q}
 endsnippet
@@ -276,65 +241,9 @@ snippet CC "C" iAm
 \mathbb{C}
 endsnippet
 
-# ==== Dynamic Operation ====
 
-priority 100
-snippet `(\\?[a-zA-Z]\w*({?\w*})?)(bf|BF)` "mathbf" iAm
-\mathbf{``rv = m[1]``}
-endsnippet
-
-priority 100
-snippet `(\\?[a-zA-Z]\w*({?\w*})?)(bm|BM)` "mathbm" iAm
-\bm{``rv = m[1]``}
-endsnippet
-
-snippet 0bm "0bm" iAm
-\bm{0}
-endsnippet
-
-snippet 1bm "1bm" iAm
-\bm{1}
-endsnippet
-
-priority 100
-snippet `(\\?[a-zA-Z]\w*({?\w*})?)(bs)` "boldsymbol" iAm
-\boldsymbol{``rv = m[1]``}
-endsnippet
-
-priority 100
-snippet `(\\?[a-zA-Z]\w*({?\w*})?)(sf)` "mathsf" iAm
-\mathsf{``rv = m[1]``}
-endsnippet
-
-priority 100
-snippet `(\\?[a-zA-Z]\w*({?\w*})?)(frak)` "mathfrak" iAm
-\mathfrak{``rv = m[1]``}
-endsnippet
-
-priority 100
-snippet `(\\?[a-zA-Z]\w*({?\w*})?)cal` "mathcal" iAm
-\mathcal{``rv = m[1].toUpperCase()``}$0
-endsnippet
-
-priority 100
-snippet `(?<!\\)\b([a-zA-Z]+)rm` "mathrm" iAm
-\mathrm{``rv = m[1]``}
-endsnippet
-
-priority 100
-snippet `(?<!\\)\b([a-zA-Z]+)opn` "operatorname" iAm
-\operatorname{``rv = m[1]``}
-endsnippet
-
-priority 100
-snippet `(\\?[a-zA-Z]\w*({?\w*})?)bb` iAm
-\mathbb{``rv = m[1]``}$0
-endsnippet
-
-
-# == Auto Symbol ==
-
-snippet oo "\infty" iAmm
+## “象形”符号 及 容易漏打\的如函数名
+snippet oooo "\infty" iAmm
 \infty
 endsnippet
 
@@ -342,15 +251,15 @@ snippet ... "cdots" iAm
 \cdots
 endsnippet
 
-snippet `(\d+)\.\.` "0, 1, 2, ..., n" iAm
+snippet `(\d+)\.\.` "e.g. 3..形成x_3,...,x_n, 其中光标停留在x上" iAm
 ``rv = m[1].split('').map((d) => "${1:_}" + d + "${2:, }").join('');``\cdots${3:${2:, }${1:_}n}
 endsnippet
 
-snippet `(\d+),` "0, 1, 2" iAm
+snippet `(\d+),` "e.g. 134,形成x_1,x_3,x_4, 其中光标停留在x上" iAm
 ``rv = m[1].split('').map((d) => "${1:_}" + d).join("${2:, }");``
 endsnippet
 
-snippet <> "hokje" iA
+snippet <> "菱形" iA
 \diamond 
 endsnippet
 
@@ -366,11 +275,11 @@ endsnippet
 # ,... -> , \ldots
 # ,  ... -> , \ldots
 priority 101
-snippet `(?<=,)(\s*)\.\.\.` "smart ldots" imA
+snippet `(?<=,)(\s*)\.\.\.` "贴地三点（只在逗号后触发）" imA
  \ldots 
 endsnippet
 
-snippet ** "dot multiply" iAm
+snippet ** "中间一点（乘法）" iAm
 \cdot 
 endsnippet
 
@@ -382,40 +291,22 @@ snippet -+ "mp" iAm
 \mp 
 endsnippet
 
-snippet odot "odot" iAm
-\odot 
-endsnippet
-
 priority 101
-snippet xx "cross" iAm
+snippet xx "乘号" iAm
 \times 
 endsnippet
 
-snippet eps "epsilon" iAm
+snippet `(?<!\\)eps` "epsilon" iAm
 \epsilon
 endsnippet
 
 priority 100
-snippet veps "varepsilon" iAm
+snippet `(?<!\\)veps` "varepsilon" iAm
 \varepsilon
-endsnippet
-
-priority 100
-snippet ell "ell" iAm
-\ell
-endsnippet
-
-priority 100
-snippet log "log" iAm
-\log
 endsnippet
 
 snippet oth "otherwise" iAm
 \text{otherwise}
-endsnippet
-
-snippet star "star" iAm
-^{*}
 endsnippet
 
 snippet `(?<!\\)(oint|iiint|iint|int)` "integrate" iAm
@@ -426,28 +317,31 @@ snippet `(?<!\\)(sum|min|max|argmin|argmax|sup|inf)` "sum|min|max|argmin|argmax|
 \\``rv = m[1]``
 endsnippet
 
-snippet `(?<!\\)(sin|cos|tan|arccot|cot|csc|ln|exp|det|perp|arcsin|arccos|arctan|arccot|arccsc|arcsec|ell|nabla|notin|not)` "function" iAm
+snippet `(?<!\\)(sin|cos|tan|arccot|cot|csc|ln|log|exp|det|perp|arcsin|arccos|arctan|arccot|arccsc|arcsec|ell|nabla|notin|not)` "function" iAm
 \\``rv = m[1]``
 endsnippet
 
-snippet `(?<!\\)(mu|alpha|sigma|rho|beta|Beta|gamma|delta|pi|zeta|eta|varepsilon|theta|iota|kappa|vartheta|lambda|nu|pi|rho|tau|upsilon|varphi|phi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)` "greek" iAm
+snippet `(?<!\\)(mu|alpha|sigma|rho|beta|Beta|gamma|delta|pi|zeta|eta|varepsilon|theta|iota|kappa|vartheta|lambda|nu|pi|rho|tau|upsilon|varphi|phi|chi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)` "greek" iAm
 \\``rv = m[1]``
 endsnippet
 
-# ==== Space Symbol ====
-snippet `(?<!\\)(quad)` "ln" iAm
+snippet `(?<!\\|e)(psi)` "专门拿出psi, 因为它含于epsilon" iAm
 \\``rv = m[1]``
 endsnippet
 
-# ==== Logic Symbol ====
+snippet `(?<!\\)(quad)` "quad" iAm
+\\``rv = m[1]``
+endsnippet
 
+
+## 逻辑学
 
 snippet empty "empty" iAm
 \empty
 endsnippet
 
 priority 200
-snippet inn "in" iAm
+snippet `inn|iin` "in" iAm
 \in 
 endsnippet
 
@@ -464,12 +358,13 @@ snippet sqs "sqsubset" iAm
 \sqsubseteq 
 endsnippet
 
-snippet tto "to" iAm
+priority 200
+snippet `tto|too|->` "to" iAm
 \to 
 endsnippet
 
-priority 200
-snippet ott "leftarrow" iAm
+priority 201
+snippet `rtto|rtoo|<-|-<` "leftarrow" iAm
 \leftarrow 
 endsnippet
 
@@ -483,19 +378,16 @@ snippet `(?<=\b|\d+)(?<!\\)(bot|top|dagger)` "logic symbols" iAm
 \\``rv = m[1]``
 endsnippet
 
-snippet -> "to" iAm
-\to 
-endsnippet
-
-snippet !> "mapsto" iAm
+priority 201
+snippet `\|->|mto` "mapsto" iAm
 \mapsto 
 endsnippet
 
-snippet => "implies" iAm
+snippet `ipy|=>` "implies" iAm
 \implies
 endsnippet
 
-snippet =< "implied by" iAm
+snippet `iby|=<` "implied by" iAm
 \impliedby
 endsnippet
 
@@ -521,7 +413,7 @@ snippet thr "therefore" iAm
 endsnippet
 
 
-# ==== Possibility Symbol ====
+## 概率论
 
 snippet Pr "Pr" iAm
 \operatorname{Pr}
@@ -540,18 +432,14 @@ snippet Exp "Expected" iAm
 endsnippet
 
 
-# ==== Compare Symbol ====
+## 比较符号
 
-snippet -- "setminus" iAm
+snippet -- "集合减法" iAm
 \setminus
 endsnippet
 
 snippet >= "greater than" iAm
 \ge $0
-endsnippet
-
-snippet dis "displaystyle" iAm
-\displaystyle 
 endsnippet
 
 snippet <= "less than" iAm
@@ -562,23 +450,24 @@ snippet != "no equals" iAm
 \neq 
 endsnippet
 
-snippet == " constan equals" iAm
+snippet == "constant equals" iAm
 \equiv 
 endsnippet
 
-snippet sim "sim" iAm
+snippet ~ "一条波浪" iAm
 \sim 
 endsnippet
 
-snippet `\\sim eq` "simeq" iAm
+priority 200
+snippet `\\sim -` "一条波浪一条横线" iAm
 \simeq 
 endsnippet
 
-snippet ~~ " Amppro equals" iAm
+snippet ~~ "两条波浪" iAm
 \approx 
 endsnippet
 
-snippet ~= " Amppro equals2" iAm
+snippet `\\sim =` "一条波浪两条横线" iAm
 \cong
 endsnippet
 
@@ -586,39 +475,12 @@ snippet >> ">>" iAm
 \gg
 endsnippet
 
-
 snippet << "<<" iAm
 \ll
 endsnippet
 
 
-# == Auto Environment ==
-
-# ==== Auto Math Mode ====
-
-snippet lm "inline Math" wA
-$${1}$$0
-endsnippet
-
-snippet dm "display Math" wA
-$$
-${1}
-$$$0
-endsnippet
-
-snippet eqt "equation" wA
-\begin{equation}
-  ${1}
-\end{equation}
-endsnippet
-
-snippet eqs "equation*" wA
-\begin{equation*}
-  ${1}
-\end{equation*}
-endsnippet
-
-# ==== Common Environment ====
+## 双边符号
 
 snippet case "cases" iAm
 \begin{cases} $1, & $2 \\\\ $3, & $4 \end{cases}
@@ -626,17 +488,15 @@ endsnippet
 
 snippet ali "aligned" iAm
 \begin{aligned}
-$1 \\\\
+$1
 \end{aligned}
 endsnippet
 
-# == Auto Adaptive Close ==
-
-snippet ceil "ceil" iAm
+snippet `c(ei)?l` "ceil" iAm
 \left\lceil $1 \right\rceil $0
 endsnippet
 
-snippet floor "floor" iAm
+snippet `fl(oor)?` "floor" iAm
 \left\lfloor $1 \right\rfloor$0
 endsnippet
 
@@ -676,15 +536,12 @@ snippet @> "leftangle rightangle" iAm
 endsnippet
 
 priority 200
-snippet norm iAm
+snippet norm "范数" iAm
 \left\| ${1} \right\|$2
 endsnippet
 
-# == Snippet ==
 
-# ==== General Snippet ====
-
-# ====== Lite Snippet ======
+## 乱七八糟
 
 snippet tag "tag" iAm
 \tag{$1}
@@ -699,13 +556,12 @@ snippet xyzb "Auto (x, y ,z)" iAm
 endsnippet
 
 priority 100
-snippet `\b([a-zA-Z])n(\d)` "x[n+1]" iAm
+snippet `\b([a-zA-Z])n(\d)` "输入xn2得到x_{n+2}" iAm
 ``rv = m[1]``_{${1:n}+``rv = m[2]``}$0
 endsnippet
 
-# Unkown
-snippet rij "mrij" iAm
-(${1:x}_${2:n})_{${3:$2} \\in ${4:N}}$0
+snippet seq "数列{x_n}_{n=1}^{\infty}" iAm
+\\{${1:x}_${2:n}\\}_{${3:$2}=${4:1}}^{\infty}$0
 endsnippet
 
 priority 200
@@ -719,38 +575,46 @@ snippet beg "begin{} / end{}" bA
 \\end{$1}
 endsnippet
 
-# ======== N Series ========
+
+## 展开
 
 priority 100
-snippet comma "comma" iAm
+snippet comma "生成\alpha_1,\alpha_2,...,\alpha_n" iAm
 ${1:\\alpha}_1,${1:\\alpha}_2,\\cdots,${1:\\alpha}_${2:n}
 endsnippet
 
 priority 100
-snippet plus "plus" iAm
+snippet plus "生成k_1 \alpha_1 + k_2 \alpha_2 +...+ k_n \alpha_n" iAm
 ${1:k}_1${2:\\alpha}_1+${1:k}_2${2:\\alpha}_2+\\cdots+${1:k}_${3:n}${2:\\alpha}_${3:n}
 endsnippet
 
-snippet `\b([ijk])=n` "i=1,2,\cdots,n" iAm
-``rv = m[1]``=1,2,\cdots,n
+snippet `\b(i)i=n` "将ii/jj/kk=n自动展成i=1,2,...,n" iAm
+i=1,2,\cdots,n
+endsnippet
+snippet `\b(j)j=n` iAm
+j=1,2,\cdots,n
+endsnippet
+snippet `\b(k)k=n` iAm
+k=1,2,\cdots,n
 endsnippet
 
-# ======== Common Operator Snippet ========
 
-snippet taylor "taylor" iAm
-\sum_{${1:k}=${2:0}}^{${3:\infty}} ${4:c_$1} (x-a)^$1 $0
+## 常用公式
+
+snippet tay "taylor" iAm
+\sum\limits_{${1:k}=${2:0}}^{${3:\infty}} ${4:\frac{f^{($1)\} (x_0)\}{k!\}} (x-x_0)^$1 $0
 endsnippet
 
 snippet `(?<!\\)lim` "limit" iAm
-\lim_{${1:n} \to ${2:\infty}}
+\lim\limits_{${1:n} \to ${2:\infty}}
 endsnippet
 
 snippet `(?<!\\)prod` "product" iAm
-\prod_{${1:n=${2:1}}}^{${3:\infty}} ${4:${VISUAL}}$0
+\prod\limits_{${1:n=${2:1}}}^{${3:\infty}} {$4}$0
 endsnippet
 
-snippet `(?<!\\)part` "d/dx" iAm
-\frac{\partial ${1:V}}{\partial ${2:x}}$0
+snippet `(?<!\\)part` "偏/偏x" iAm
+\frac{\partial ${1:F}}{\partial ${2:x}}$0
 endsnippet
 
 priority 300
@@ -759,35 +623,35 @@ snippet `(?<!\\)diff` "d/dx" iAm
 endsnippet
 
 priority 400
-snippet `(?<!\\)2diff` "d/dx" iAm
+snippet `(?<!\\)2diff` "d2/dx2" iAm
 \frac{\mathrm{d}^2${1:y}}{\mathrm{d}${2:x}^2}$0
 endsnippet
 
 priority 400
-snippet `(?<!\\)3diff` "d/dx" iAm
+snippet `(?<!\\)3diff` "d3/dx3" iAm
 \frac{\mathrm{d}^3${1:y}}{\mathrm{d}${2:x}^3}$0
 endsnippet
 
 priority 300
-snippet `dd` "dd" iAm
+snippet `dd` "d" iAm
 \mathrm{d}
 endsnippet
 
-snippet buu "bigcup" iAm
-\bigcup_{${1:i \in ${2: I}}} $0
+snippet CUP "bigcup" iAm
+\bigcup\limits_{${1:i \in ${2: I}}} $0
 endsnippet
 
-snippet bnn "bigcap" iAm
-\bigcap_{${1:i \in ${2: I}}} $0
+snippet CAP "bigcap" iAm
+\bigcap\limits_{${1:i \in ${2: I}}} $0
 endsnippet
 
 priority 100
 snippet dint "integral" iAm
-\int_{${1:-\infty}}^{${2:\infty}} ${3} \\mathrm{d}${4:x}$0
+\int_{${1:-\infty}}^{${2:\infty}} ${3:f(x)} \\mathrm{d}${4:x}$0
 endsnippet
 
 priority 200
-snippet `c(o|n)?(l|n)?(b|c)?int` "s 	egral" iAm
+snippet `c(o|n)?(l|n)?(b|c)?int` "各种积分号" iAm
 ``
 let final = "\\"; // init
 let isO = m[1] == "o";
@@ -808,15 +672,18 @@ rv = final;
 ``
 endsnippet
 
-# Custom: Can add more defined operator
+
+## 自定义纯文本显示的算子
+
 priority 100
 snippet `(?<![\a-zA-Z])(rank|trace|svd|eye|ones|orth|rows|cols|zeros|diag|rref|hstack|vstack|nullspace|eigen|dim|lcm|gcd|atan2|softmax|eig|sign|const)` "math function" iAm
 \\operatorname{``rv = m[1]``}
 endsnippet
 
-# ====== Big Snippet ======
 
-snippet bigdef "Big function" iAm
+## 大定义
+
+snippet `DEFF|bigdef` "详细定义映射" iAm
 \begin{equation$6}
     \begin{aligned}
         $1\colon $2 &\longrightarrow $3 \\\\
@@ -868,7 +735,7 @@ snippet Argmax "Optimization problem" iAm
 \end{aligned}
 endsnippet
 
-snippet deff "Definition of function" iAm
+snippet deff "定义数值函数" iAm
 $1\colon ${2:\\mathbb{R\}} \to ${3:\\mathbb{R\}}, ${4:x} \mapsto $0
 endsnippet
 
@@ -877,18 +744,16 @@ snippet iid "independent and identical distribution" iAm
 \overset{\text{i.i.d.}}{\sim}
 endsnippet
 
-snippet defe "define equal" iAm
+snippet defe "定义符号1: 等号上面一个def" iAm
 \overset{\underset{\mathrm{def}}{}}{=}
 endsnippet
 
-snippet deft "define triangleq" iAm
+snippet deft "定义符号2: 加热符号" iAm
 \triangleq 
 endsnippet
 
 
-# == Matrix ==
-
-# ==== Static Matrix ====
+## 矩阵
 
 snippet pmat "pmat" wm
 \begin{pmatrix} 
@@ -902,47 +767,46 @@ snippet bmat "pmat" wm
 \end{bmatrix} $0
 endsnippet
 
-snippet vecC "column vector" iAm
-\begin{bmatrix} ${1:x}_1 \\\\ ${1:x}_2 \\\\ \vdots \\\\ ${1:x}_${2:n} \end{bmatrix}
-endsnippet
-
-snippet vecR "row vector" iAm
-\begin{bmatrix} ${1:x}_1, ${1:x}_2, \cdots, ${1:x}_${2:n} \end{bmatrix}$0
+priority 300
+snippet cvec "列向量" iAm
+\begin{pmatrix} ${1:x}_1 \\\\ ${1:x}_2 \\\\ \vdots \\\\ ${1:x}_${2:n} \end{pmatrix}
 endsnippet
 
 priority 300
-snippet omis "omission" iAm
-\\begin{bmatrix}${1:1}&${2:1}&\\cdots&${4:1}\\\\${5:1}&${6:1}&\\cdots&${8:1}\\\\\\vdots&\\vdots&\\ddots&\\vdots\\\\${13:1}&${14:1}&\\cdots&${16:1}\\end{bmatrix}
+snippet rvec "行向量" iAm
+\begin{pmatrix} ${1:x}_1, ${1:x}_2, \cdots, ${1:x}_${2:n} \end{pmatrix}$0
 endsnippet
 
 priority 300
-snippet submat "omission" iAm
-\\begin{bmatrix}
+snippet diag "对角矩阵" iAm
+\\begin{pmatrix}${1:d_1}& &\\\\&${2:d_2}&\\\\&&\\ddots&\\\\&&&${3:d_n}\\end{pmatrix}
+endsnippet
+
+priority 301
+snippet amat "矩阵(a_{ij})" iAm
+\\begin{pmatrix}
     ${1:a}_{11} & ${1:a}_{12} & \\cdots & ${1:a}_{1n} \\\\
     ${1:a}_{21} & ${1:a}_{22} & \\cdots & ${1:a}_{2n} \\\\
     \\vdots & \\vdots & \\ddots & \\vdots \\\\
     ${1:a}_{n1} & ${1:a}_{n2} & \\cdots & ${1:a}_{nn}
-\\end{bmatrix}
+\\end{pmatrix}
 endsnippet
-
 priority 300
-snippet subplusmat "omission" iAm
-\\begin{bmatrix}
-    ${1:a}_{11}+${2:b}_{11} & ${1:a}_{12}+${2:b}_{12} & \\cdots & ${1:a}_{1n}+${2:b}_{1n} \\\\
-    ${1:a}_{21}+${2:b}_{21} & ${1:a}_{22}+${2:b}_{22} & \\cdots & ${1:a}_{2n}+${2:b}_{2n} \\\\
+snippet `(?<!b|p|v)mat` "mat 除各...外可供修改" iAm
+\\begin{pmatrix}
+    ${1:a_{11\}} & ${2:a_{12\}} & \\cdots & ${3:a_{1n\}} \\\\
+    ${4:a_{21\}} & ${5:a_{22\}} & \\cdots & ${6:a_{2n\}} \\\\
     \\vdots & \\vdots & \\ddots & \\vdots \\\\
-    ${1:a}_{n1}+${2:b}_{n1} & ${1:a}_{n2}+${2:b}_{n2} & \\cdots & ${1:a}_{nn}+${2:b}_{nn}
-\\end{bmatrix}
+    ${7:a_{n1\}} & ${8:a_{n2\}} & \\cdots & ${9:a_{nn\}}
+\\end{pmatrix}
 endsnippet
 
 snippet jacobi "jacobi" iAm
-\\begin{bmatrix}\\frac{\\partial ${1:f}_1}{\\partial ${2:x}_1}&\\frac{\\partial ${1:f}_1}{\\partial ${2:x}_2}&\\cdots&\\frac{\\partial ${1:f}_1}{\\partial ${2:x}_${3:n}}\\\\\\frac{\\partial ${1:f}_2}{\\partial ${2:x}_1}&\\frac{\\partial ${1:f}_2}{\\partial ${2:x}_2}&\\cdots&\\frac{\\partial ${1:f}_2}{\\partial ${2:x}_${3:n}}\\\\\\vdots&\\vdots&\\ddots&\\vdots\\\\\\frac{\\partial ${1:f}_${3:m}}{\\partial ${2:x}_1}&\\frac{\\partial ${1:f}_${3:m}}{\\partial ${2:x}_2}&\\cdots&\\frac{\\partial ${1:f}_${3:m}}{\\partial ${2:x}_${3:n}}\\end{bmatrix}
+\\begin{pmatrix}\\frac{\\partial ${1:f}_1}{\\partial ${2:x}_1}&\\frac{\\partial ${1:f}_1}{\\partial ${2:x}_2}&\\cdots&\\frac{\\partial ${1:f}_1}{\\partial ${2:x}_${3:n}}\\\\\\frac{\\partial ${1:f}_2}{\\partial ${2:x}_1}&\\frac{\\partial ${1:f}_2}{\\partial ${2:x}_2}&\\cdots&\\frac{\\partial ${1:f}_2}{\\partial ${2:x}_${3:n}}\\\\\\vdots&\\vdots&\\ddots&\\vdots\\\\\\frac{\\partial ${1:f}_${3:m}}{\\partial ${2:x}_1}&\\frac{\\partial ${1:f}_${3:m}}{\\partial ${2:x}_2}&\\cdots&\\frac{\\partial ${1:f}_${3:m}}{\\partial ${2:x}_${3:n}}\\end{pmatrix}
 endsnippet
 
-# ==== Dynamic Matrix ====
-
 priority 300
-snippet `(b|p|v)mata([1-9])` "bmatrix" iiAm
+snippet `(b|p|v)mata([1-9])` "pmata3|vmata3(行列式) 填入所有元素相等" iiAm
 \\begin{``rv = m[1]``matrix}``
 	let len = m[2];
 	let results = "";
@@ -954,42 +818,27 @@ snippet `(b|p|v)mata([1-9])` "bmatrix" iiAm
 endsnippet
 
 priority 300
-snippet `(b|p|v)mat([1-9])` "bmatrix" iiAm
+snippet `(b|p|v)mat([1-9])` "pmat3 按行填入" iiAm
 \\begin{``rv = m[1]``matrix}``
 	rv = gen_matrix(m[2],m[2]);
 ``\\end{``rv = m[1]``matrix}$0
 endsnippet
 
-priority 2000
-snippet `(b|p|v)matr([1-9]{1})` "bmatrix" iiAm
+priority 300
+snippet `(b|p|v)matr([1-9]{1})` "pmatr3 按列填入" iiAm
 \\begin{``rv = m[1]``matrix}``
 	rv = gen_matrix_transposed(m[2],m[2]);
 ``\\end{``rv = m[1]``matrix}$0
 endsnippet
 
-priority 300
-snippet `vec([1-9])` "col vector" iiAm
-\\begin{bmatrix}``
-    rv = gen_matrix(m[1], 1);
-``\\end{bmatrix}$0
-endsnippet
 
-priority 300
-snippet `vecr([1-9])` "row vector" iiAm
-\\begin{bmatrix}``
-    rv = gen_matrix(1, m[1]);
-``\\end{bmatrix}$0
-endsnippet
-
-
-# == General ==
+## 非数学相关, 方框与表格, markdown实现并不理想
 
 snippet \box "Box" 
 ``rv = '┌' + '─'.repeat(t[0].length + 2) + '┐'``
 │ $1 │
 ``rv = '└' + '─'.repeat(t[0].length + 2) + '┘'``
 endsnippet
-
 
 priority 300
 snippet `table(\d)(\d)` "create table with rows and columns" wA
