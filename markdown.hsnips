@@ -141,6 +141,10 @@ snippet invs "inverse" iAm
 ^{-1}
 endsnippet
 
+snippet dig "digree" iAm
+^{\circ}
+endsnippet
+
 priority 10000
 snippet TR "inverse" iAm
 ^{\mathsf{T}}
@@ -342,11 +346,11 @@ snippet ... "cdots" iAm
 \cdots
 endsnippet
 
-snippet `(\d+)\.\.` "0, 1, 2, ..., n" iAm
+snippet `(\d\d+)\.\.` "0, 1, 2, ..., n" iAm
 ``rv = m[1].split('').map((d) => "${1:_}" + d + "${2:, }").join('');``\cdots${3:${2:, }${1:_}n}
 endsnippet
 
-snippet `(\d+),` "0, 1, 2" iAm
+snippet `(\d\d+),` "0, 1, 2" iAm
 ``rv = m[1].split('').map((d) => "${1:_}" + d).join("${2:, }");``
 endsnippet
 
@@ -408,6 +412,10 @@ endsnippet
 priority 100
 snippet log "log" iAm
 \log
+endsnippet
+
+snippet bin "binom" iAm
+\binom{$1}{$2}
 endsnippet
 
 snippet oth "otherwise" iAm
