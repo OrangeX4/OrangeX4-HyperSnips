@@ -1,41 +1,3 @@
-snippet import-template "import template"
-``
-rv = `#import "../../../Typst/report-template.typ": *
-#import "../../../Typst/typst-sympy-calculator.typ": *
-#import "../../../Typst/tablex.typ": *
-
-#set heading(numbering: Numbering.with(base: 2, "(1) (a)"))
-#show math.equation.where(block: true): it => display(it)
-
-// apply the template
-#show: report.with(
-    size: 12pt,
-    subject: "课程标题",
-    title: "HW2",
-    date: "2023 年春季",
-    author: "",
-    par-indent: false,
-    show-outline: true,
-)`
-``
-endsnippet
-
-// snippet `([^\x00-\xff])([,.:;?!"])` "punct" iA
-// ``
-// let map = {
-//   ',': '，',
-//   '.': '。',
-//   ':': '：',
-//   ';': '；',
-//   '?': '？',
-//   '!': '！',
-//   '"': '「$1」',
-//   '': '、',
-// };
-// rv = m[1] + map[m[2]] ?? m[2];
-// ``
-// endsnippet
-
 snippet lm "inline Math" iwA
 $${1}$
 endsnippet
@@ -56,6 +18,10 @@ snippet derive "derive" iAm
 derive(${1:f}, ${2:x})
 endsnippet
 
+snippet part "partial" iAm
+(diff ${1:f})/(diff ${3:x})
+endsnippet
+
 snippet int "integral" iAm
 integral
 endsnippet
@@ -70,6 +36,18 @@ endsnippet
 
 snippet tp "to the ... power" iAm
 ^(${1:3})
+endsnippet
+
+snippet veps "epsilon.alt" iAm
+epsilon.alt
+endsnippet
+
+snippet ;; "\;" iAm
+\;
+endsnippet
+
+snippet ,, "\," iAm
+\,
 endsnippet
 
 snippet `([A-Za-z\)])(\d)` "auto subscript" iAm
@@ -90,23 +68,23 @@ snippet `(\)|mu|alpha|sigma|rho|beta|gamma|delta|zeta|eta|varepsilon|epsilon|the
 `` rv = m[1] + "_" + m[2].substring(0, 1) ``
 endsnippet
 
-snippet `(?<![A-Za-z])([A-Za-hk-z01])(grave|acute|hat|tilde|macron|breve|dot|ddot|dddot|ddddot|diaer|circle|caron|vec|upright|italic|b|sans|frak|mono|bb|cal|bar)` "hat" iAm
+snippet `(?<![A-Za-z])([A-Za-hk-z01])(grave|acute|hat|tilde|macron|breve|dot|ddot|dddot|ddddot|diaer|circle|caron|vec|upright|italic|b|sans|frak|mono|bb|cal|ov)` "hat" iAm
 ``
-const map = { "ddot": "dot.double", "dddot": "dot.triple", "ddddot": "dot.quad", "vec": "arrow", "b": "bold", "bar": "overline" }
+const map = { "ddot": "dot.double", "dddot": "dot.triple", "ddddot": "dot.quad", "vec": "arrow", "b": "bold", "ov": "overline" }
 rv = (map[m[2]] || m[2]) + "(" + m[1] + ")"
 ``
 endsnippet
 
-snippet `(mu|alpha|sigma|rho|beta|gamma|delta|zeta|eta|varepsilon|epsilon|theta|iota|kappa|vartheta|lambda|nu|pi|rho|tau|upsilon|phi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)(grave|acute|hat|tilde|macron|breve|dot|ddot|dddot|ddddot|diaer|circle|caron|vec|upright|italic|b|sans|frak|mono|bb|cal|bar)` "hat" iAm
+snippet `(mu|alpha|sigma|rho|beta|gamma|delta|zeta|eta|varepsilon|epsilon|theta|iota|kappa|vartheta|lambda|nu|pi|rho|tau|upsilon|phi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)(grave|acute|hat|tilde|macron|breve|dot|ddot|dddot|ddddot|diaer|circle|caron|vec|upright|italic|b|sans|frak|mono|bb|cal|ov)` "hat" iAm
 ``
-const map = { "ddot": "dot.double", "dddot": "dot.triple", "ddddot": "dot.quad", "vec": "arrow", "b": "bold", "bar": "overline" }
+const map = { "ddot": "dot.double", "dddot": "dot.triple", "ddddot": "dot.quad", "vec": "arrow", "b": "bold", "ov": "overline" }
 rv = (map[m[2]] || m[2]) + "(" + m[1] + ")"
 ``
 endsnippet
 
-snippet `((grave|acute|hat|tilde|macron|breve|dot|dot\.double|dot\.triple|dot\.quad|diaer|circle|acute\.double|caron|arrow|arrow\.l|upright|italic|bold|sans|frak|mono|bb|cal)\([a-zA-Z\d]+\))(grave|acute|hat|tilde|macron|breve|dot|ddot|dddot|ddddot|diaer|circle|caron|vec|upright|italic|b|sans|frak|mono|bb|cal|bar)` "hat" iAm
+snippet `((grave|acute|hat|tilde|macron|breve|dot|dot\.double|dot\.triple|dot\.quad|diaer|circle|acute\.double|caron|arrow|arrow\.l|upright|italic|bold|sans|frak|mono|bb|cal)\([a-zA-Z\d]+\))(grave|acute|hat|tilde|macron|breve|dot|ddot|dddot|ddddot|diaer|circle|caron|vec|upright|italic|b|sans|frak|mono|bb|cal|ov)` "hat" iAm
 ``
-const map = { "ddot": "dot.double", "dddot": "dot.triple", "ddddot": "dot.quad", "vec": "arrow", "b": "bold", "bar": "overline" }
+const map = { "ddot": "dot.double", "dddot": "dot.triple", "ddddot": "dot.quad", "vec": "arrow", "b": "bold", "ov": "overline" }
 rv = (map[m[3]] || m[3]) + "(" + m[1] + ")"
 ``
 endsnippet
